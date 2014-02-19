@@ -2,6 +2,7 @@ package com.github.dr3amr2.vlc;
 
 /**
  * Created by Dizzy on 2/19/14.
+ *
  */
 import java.util.Properties;
 
@@ -13,7 +14,6 @@ import uk.co.caprica.vlcj.binding.internal.libvlc_media_t;
 import uk.co.caprica.vlcj.component.EmbeddedMediaPlayerComponent;
 import uk.co.caprica.vlcj.player.MediaPlayer;
 import uk.co.caprica.vlcj.player.MediaPlayerEventListener;
-import uk.co.caprica.vlcj.runtime.RuntimeUtil;
 
 public class MinimalPlayer {
 
@@ -168,6 +168,6 @@ public class MinimalPlayer {
 
         });
 
-        mediaPlayerComponent.getMediaPlayer().playMedia("trololo.mp4");
+        mediaPlayerComponent.getMediaPlayer().playMedia("C:\\Users\\Dizzy\\Desktop\\widebody.mp4");
     }
 }
