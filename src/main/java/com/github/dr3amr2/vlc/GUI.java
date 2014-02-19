@@ -18,6 +18,7 @@ public class GUI {
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
+                System.out.println("Starting Media Player");
                 Properties props = System.getProperties();
                 props.setProperty("vlcj.log", "DEBUG");
                 JFrame frame = new JFrame();
