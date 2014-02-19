@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="SBT: com.miglayout:miglayout:3.7.4">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.ivy2/cache/com.miglayout/miglayout/jars/miglayout-3.7.4.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$USER_HOME$/.ivy2/cache/com.miglayout/miglayout/docs/miglayout-3.7.4-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.ivy2/cache/com.miglayout/miglayout/srcs/miglayout-3.7.4-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

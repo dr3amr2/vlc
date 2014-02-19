@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="SBT: net.java.dev.jna:platform:3.5.2">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.ivy2/cache/net.java.dev.jna/platform/jars/platform-3.5.2.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$USER_HOME$/.ivy2/cache/net.java.dev.jna/platform/docs/platform-3.5.2-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.ivy2/cache/net.java.dev.jna/platform/srcs/platform-3.5.2-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
