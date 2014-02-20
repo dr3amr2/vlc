@@ -13,22 +13,36 @@ import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 
 public class mainVLC {
+
     public static void main(String[] args) {
+
+    vlcController controller;
+
+        controller = new vlcController(new vlcModel(), new vlcPanel());
         NativeLibrary.addSearchPath("libvlc", "C:\\Program Files\\VideoLAN\\VLC");
 
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
+
                 System.out.println("Starting Media Player");
                 Properties props = System.getProperties();
                 props.setProperty("vlcj.log", "DEBUG");
-                JFrame frame = new JFrame();
-                frame.setPreferredSize(new Dimension(600,600));
-                Player p = new Player(frame);
-                p.createToolTip(); // actually doing nothing
-                frame.pack();
-                frame.setVisible(true);
+
+                initVlcPlayer();
+
             }
         });
     }
+
+    private static void initVlcPlayer(){
+        JFrame frame = new JFrame();
+        frame.setPreferredSize(new Dimension(600,600));
+        Player p = new Player(frame);
+        p.createToolTip(); // actually doing nothing
+        frame.pack();
+        frame.setVisible(true);
+    }
+
+
 }
