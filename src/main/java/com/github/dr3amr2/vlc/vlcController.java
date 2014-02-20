@@ -11,10 +11,7 @@ import uk.co.caprica.vlcj.player.MediaPlayer;
 import uk.co.caprica.vlcj.player.MediaPlayerEventListener;
 
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.WindowEvent;
-import java.awt.event.WindowListener;
+import java.awt.event.*;
 import java.io.File;
 
 public class vlcController {
@@ -75,6 +72,15 @@ public class vlcController {
                 public void windowDeactivated(WindowEvent e) {
                 }
 
+            });
+
+            panel.getRootParent().addComponentListener(new ComponentAdapter() {
+                @Override
+                public void componentResized(ComponentEvent e) {
+                    super.componentResized(e);
+                    // System.out.println("Window Resized: Frame");
+                    panel.resize(e.getComponent());
+                }
             });
         } else {
             System.out.println("RootParent = null\nPlayer not displayable");
@@ -226,11 +232,8 @@ public class vlcController {
             @Override
             public void videoOutput(MediaPlayer player, int newCount) {
                 // Set the canvas to match the size of the parent panel
-                panel.getCanvas().setSize(
-                        panel.getRootParent().getPreferredSize().width,
-                        panel.getRootParent().getPreferredSize().height - panel.getPlaybackControllerPanel().getPreferredSize().height
-                );
-                panel.getRootParent().pack();
+                updateCanvasSize();
+
             }
 
             @Override
@@ -287,7 +290,15 @@ public class vlcController {
         });
     }
 
-// ***********************************************************************************************
+    private void updateCanvasSize() {
+        panel.getCanvas().setSize(
+                panel.getRootParent().getPreferredSize().width,
+                panel.getRootParent().getPreferredSize().height - panel.getPlaybackControllerPanel().getPreferredSize().height
+        );
+        panel.getRootParent().pack();
+    }
+
+    // ***********************************************************************************************
 // *  Getters and Setters
 // ***********************************************************************************************
     public vlcModel getModel() {

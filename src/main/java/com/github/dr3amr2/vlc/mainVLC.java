@@ -25,7 +25,7 @@ public class mainVLC {
 
                 System.out.println("Starting Media Player");
                 Properties props = System.getProperties();
-                props.setProperty("vlcj.log", "DEBUG");
+                props.setProperty("vlcj.log", "WARN");
 
                 // initVlcPlayer();
 

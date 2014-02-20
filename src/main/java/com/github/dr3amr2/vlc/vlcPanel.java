@@ -7,6 +7,7 @@ package com.github.dr3amr2.vlc;
  */
 
 import net.miginfocom.swing.MigLayout;
+import uk.co.caprica.vlcj.component.EmbeddedMediaListPlayerComponent;
 import uk.co.caprica.vlcj.player.MediaPlayerFactory;
 import uk.co.caprica.vlcj.player.embedded.EmbeddedMediaPlayer;
 import uk.co.caprica.vlcj.player.embedded.videosurface.CanvasVideoSurface;
@@ -18,6 +19,7 @@ public class vlcPanel extends JPanel {
 
     final static MediaPlayerFactory factory = new MediaPlayerFactory();
     final static EmbeddedMediaPlayer mediaPlayer = factory.newEmbeddedMediaPlayer();
+    CanvasVideoSurface surface;
 
     public JPanel getPlaybackControllerPanel() {
         return playbackControllerPanel;
@@ -39,6 +41,7 @@ public class vlcPanel extends JPanel {
     private JTextField mrl;
 
     public vlcPanel(Container c) {
+
         canvasPanel = new JPanel();
         playbackControllerPanel = new JPanel(new MigLayout());
 
@@ -46,7 +49,7 @@ public class vlcPanel extends JPanel {
 
         playbackControllerPanel.setPreferredSize(new Dimension(
                 c.getPreferredSize().width,
-                c.getPreferredSize().height/3)
+                c.getPreferredSize().height / 3)
         );
 
         initComponents();
@@ -61,8 +64,7 @@ public class vlcPanel extends JPanel {
         add(canvasPanel);
         add(playbackControllerPanel, "south");
         c.add(this);
-
-        CanvasVideoSurface surface = factory.newVideoSurface(canvas);
+        surface = factory.newVideoSurface(canvas);
         mediaPlayer.setVideoSurface(surface);
 
         //		while(mediaPlayer.isPlayable() || mediaPlayer.isPlaying()) {
@@ -92,6 +94,24 @@ public class vlcPanel extends JPanel {
         playbackControllerPanel.add(mrl, "grow");
         playbackControllerPanel.add(submitButton, "wrap");
         playbackControllerPanel.add(positionSlider, "span, grow");
+    }
+
+    public void resize(Component c){
+        playbackControllerPanel.setPreferredSize(new Dimension(
+                c.getPreferredSize().width,
+                c.getPreferredSize().height/3)
+        );
+
+        canvas.setSize(
+                c.getPreferredSize().width,
+                c.getPreferredSize().height-playbackControllerPanel.getPreferredSize().height
+        );
+
+        surface = factory.newVideoSurface(canvas);
+        mediaPlayer.setVideoSurface(surface);
+
+        repaint();
+
     }
 
     public void playMedia(String mrl) {
