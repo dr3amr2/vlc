@@ -25,20 +25,17 @@ import uk.co.caprica.vlcj.player.embedded.videosurface.CanvasVideoSurface;
 
 public class Player extends JPanel {
 
-    static JPanel controls = new JPanel(new MigLayout());
-    static JPanel panel = new JPanel();
     final static MediaPlayerFactory factory = new MediaPlayerFactory();
     final static EmbeddedMediaPlayer mediaPlayer = factory.newEmbeddedMediaPlayer();
 
-    public String getFilePath() {
-        return filePath;
-    }
+    static JPanel controls = new JPanel(new MigLayout());
+    static JPanel panel = new JPanel();
 
-    public void setFilePath(String filePath) {
-        this.filePath = filePath;
-    }
 
-    String filePath;
+    private String filePath;
+
+    JSlider positionSlider = new JSlider(JSlider.HORIZONTAL, 0, 100, 5);
+
 
     Player(Container c) {
         panel.setLayout(new MigLayout("debug"));
@@ -111,6 +108,8 @@ public class Player extends JPanel {
             @Override
             public void positionChanged(MediaPlayer mediaPlayer,
                                         float newPosition) {
+                int iPos = (int)(newPosition * 100.0);
+                positionSlider.setValue(iPos);
             }
 
             @Override
@@ -315,6 +314,9 @@ public class Player extends JPanel {
         controls.add(submit);
     }
 
+    // ***********************************************************************************************
+    // *  Getters and Setters
+    // ***********************************************************************************************
     private JFrame getRootParent() {
         Component c = panel;
         while(c.getParent() != null) {
@@ -326,4 +328,14 @@ public class Player extends JPanel {
 
         return null;
     }
+
+    public String getFilePath() {
+        return filePath;
+    }
+
+    public void setFilePath(String filePath) {
+        this.filePath = filePath;
+    }
+
+
 }

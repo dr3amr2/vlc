@@ -16,7 +16,8 @@ libraryDependencies ++= Seq(
     "uk.co.caprica" % "vlcj" % "3.0.1",
     "net.java.dev.jna" % "jna" % "3.5.2",
     "net.java.dev.jna" % "platform" % "3.5.2",
-    "com.miglayout" % "miglayout" % "3.7.4"
+    "com.miglayout" % "miglayout" % "3.7.4",
+    "log4j" % "log4j" % "1.2.17"
 )
 
 // For Settings/Task reference, see http://www.scala-sbt.org/release/sxr/sbt/Keys.scala.html
