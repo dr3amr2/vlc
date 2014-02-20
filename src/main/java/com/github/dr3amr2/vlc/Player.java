@@ -259,11 +259,11 @@ public class Player extends JPanel {
             }
         });
 
-        final JComboBox videoRate = new JComboBox(com.github.dr3amr2.vlc.videoRate.values());
+        final JComboBox videoRate = new JComboBox(VideoPlaybackSpeed.values());
         videoRate.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                videoRate f = (videoRate) videoRate.getSelectedItem();
+                VideoPlaybackSpeed f = (VideoPlaybackSpeed) videoRate.getSelectedItem();
                 mediaPlayer.setRate(f.getVideoRate());
             }
         });
