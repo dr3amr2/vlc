@@ -10,6 +10,7 @@ This project used skeleton (https://github.com/fractal/skeleton) to develop an i
      IntelliJ IDEA 
      Scala-IDE 3.0+
 
-_______________
+------------
 
+Additional Notes - Original source code to implement vlcj with java was derived from https://github.com/p3s3us/jPlayer.  It was a simple player, so i cloned it and working on adding more capabilities to it.
 
