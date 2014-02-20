@@ -33,7 +33,7 @@ public class vlcPanel extends JPanel {
     private JButton pauseButton;
     private JButton stopButton;
 
-    private JSlider positionSlider = new JSlider(JSlider.HORIZONTAL, 0, 100, 5);
+    private JSlider positionSlider;
     private JComboBox videoRateComboBox;
     private JFileChooser fileChooser;
     private JTextField mrl;
@@ -82,14 +82,16 @@ public class vlcPanel extends JPanel {
         videoRateComboBox = new JComboBox(VideoPlaybackSpeed.values());
         fileChooser = new JFileChooser();
         mrl = new JTextField(10);
+        positionSlider = new JSlider(JSlider.HORIZONTAL, 0, 100, 5);
 
         playbackControllerPanel.add(playButton);
         playbackControllerPanel.add(pauseButton);
         playbackControllerPanel.add(stopButton);
         playbackControllerPanel.add(videoRateComboBox, "wrap");
         playbackControllerPanel.add(openButton);
-        playbackControllerPanel.add(mrl, "span, grow");
-        playbackControllerPanel.add(submitButton, "span, grow");
+        playbackControllerPanel.add(mrl, "grow");
+        playbackControllerPanel.add(submitButton, "wrap");
+        playbackControllerPanel.add(positionSlider, "span, grow");
     }
 
     public void playMedia(String mrl) {
