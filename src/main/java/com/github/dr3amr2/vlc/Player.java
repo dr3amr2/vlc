@@ -131,7 +131,8 @@ public class Player extends JPanel {
 
             @Override
             public void videoOutput(MediaPlayer player, int newCount) {
-                canv.setSize(mediaPlayer.getVideoDimension());
+//                canv.setSize(mediaPlayer.getVideoDimension());
+                canv.setSize(getRootParent().getPreferredSize());
                 getRootParent().pack();
             }
 

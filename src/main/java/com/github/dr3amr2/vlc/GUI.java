@@ -6,6 +6,7 @@ package com.github.dr3amr2.vlc;
  */
 import com.sun.jna.NativeLibrary;
 
+import java.awt.*;
 import java.util.Properties;
 
 import javax.swing.JFrame;
@@ -22,6 +23,7 @@ public class GUI {
                 Properties props = System.getProperties();
                 props.setProperty("vlcj.log", "DEBUG");
                 JFrame frame = new JFrame();
+                frame.setPreferredSize(new Dimension(600,600));
                 Player p = new Player(frame);
                 p.createToolTip(); // actually doing nothing
                 frame.pack();
