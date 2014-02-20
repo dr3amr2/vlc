@@ -10,6 +10,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+import java.io.File;
 
 import javax.swing.*;
 
@@ -28,6 +29,16 @@ public class Player extends JPanel {
     static JPanel panel = new JPanel();
     final static MediaPlayerFactory factory = new MediaPlayerFactory();
     final static EmbeddedMediaPlayer mediaPlayer = factory.newEmbeddedMediaPlayer();
+
+    public String getFilePath() {
+        return filePath;
+    }
+
+    public void setFilePath(String filePath) {
+        this.filePath = filePath;
+    }
+
+    String filePath;
 
     Player(Container c) {
         panel.setLayout(new MigLayout("debug"));
@@ -268,7 +279,8 @@ public class Player extends JPanel {
         submit.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String path = mrl.getText();
+//                String path = mrl.getText();
+                String path = getFilePath();
                 System.out.println("PATH: \"" +path +"\"");
                 mediaPlayer.playMedia(path);
                 System.out.println("Playing: " +path);
@@ -276,11 +288,30 @@ public class Player extends JPanel {
             }
         });
 
+        final JFileChooser fc = new JFileChooser();
+
+        JButton open = new JButton("Open");
+        open.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int returnVal = fc.showOpenDialog(Player.this);
+
+                if (returnVal == JFileChooser.APPROVE_OPTION) {
+                    File file = fc.getSelectedFile();
+                    //This is where a real application would open the file.
+                    setFilePath(fc.getSelectedFile().getAbsolutePath());
+                    System.out.println("Opening: " + file.getName() + ".\n");
+                } else {
+                    System.out.println("Open command cancelled by user.\n");
+                }
+            }
+        });
+
         controls.add(play);
         controls.add(pause);
         controls.add(stop, "wrap");
         controls.add(videoRate);
-        controls.add(mrl);
+        controls.add(open);
         controls.add(submit);
     }
 
