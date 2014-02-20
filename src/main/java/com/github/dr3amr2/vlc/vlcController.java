@@ -107,6 +107,7 @@ public class vlcController {
             }
         });
 
+        panel.getVideoRateComboBox().setSelectedItem(VideoPlaybackSpeed.REGULAR);
         panel.getVideoRateComboBox().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
