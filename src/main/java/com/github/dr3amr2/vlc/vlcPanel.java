@@ -19,7 +19,12 @@ public class vlcPanel extends JPanel {
     final static MediaPlayerFactory factory = new MediaPlayerFactory();
     final static EmbeddedMediaPlayer mediaPlayer = factory.newEmbeddedMediaPlayer();
 
-    private JPanel playbackControllerPanel = new JPanel(new MigLayout());
+    public JPanel getPlaybackControllerPanel() {
+        return playbackControllerPanel;
+    }
+
+    private JPanel canvasPanel;
+    private JPanel playbackControllerPanel;
     private Canvas canvas = new Canvas();
 
     private JButton submitButton;
@@ -34,12 +39,23 @@ public class vlcPanel extends JPanel {
     private JTextField mrl;
 
     public vlcPanel(Container c) {
+        canvasPanel = new JPanel();
+        playbackControllerPanel = new JPanel(new MigLayout());
+
         setLayout(new MigLayout());
-        final JPanel canvasPanel = new JPanel();
-        setSize(300, 300);
+
+        playbackControllerPanel.setPreferredSize(new Dimension(
+                c.getPreferredSize().width,
+                c.getPreferredSize().height/3)
+        );
+
         initComponents();
 
-        canvas.setSize(200, 200);
+        canvas.setSize(
+                c.getPreferredSize().width,
+                c.getPreferredSize().height-playbackControllerPanel.getPreferredSize().height
+        );
+
         canvasPanel.add(canvas);
 
         add(canvasPanel);
@@ -80,9 +96,9 @@ public class vlcPanel extends JPanel {
         mediaPlayer.playMedia(mrl);
     }
 
-    // ***********************************************************************************************
-    // *  Getters and Setters
-    // ***********************************************************************************************
+// ***********************************************************************************************
+// *  Getters and Setters
+// ***********************************************************************************************
     public JFrame getRootParent() {
         Component c = this;
         while(c.getParent() != null) {

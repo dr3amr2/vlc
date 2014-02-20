@@ -1,5 +1,11 @@
 package com.github.dr3amr2.vlc;
 
+/**
+ * Created by Dizzy on 2/19/14.
+ *
+ * This handles all the controls that interact between the panel and the model
+ */
+
 import uk.co.caprica.vlcj.binding.internal.libvlc_media_t;
 import uk.co.caprica.vlcj.player.MediaPlayer;
 import uk.co.caprica.vlcj.player.MediaPlayerEventListener;
@@ -11,9 +17,6 @@ import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.io.File;
 
-/**
- * Created by Dizzy on 2/19/14.
- */
 public class vlcController {
 
     vlcModel model;
@@ -34,6 +37,10 @@ public class vlcController {
 
     }
 
+    /**
+     * This handles all the root panel windows listeners
+     * @param panel
+     */
     private void initRootPanelListeners(final vlcPanel panel) {
         if(panel.getRootParent() != null) {
             panel.getRootParent().addWindowListener(new WindowListener() {
@@ -74,6 +81,10 @@ public class vlcController {
         }
     }
 
+    /**
+     * This handles all the playback controller buttons
+     * @param panel
+     */
     private void initPlaybackControllers(final vlcPanel panel) {
         panel.getPlayButton().addActionListener(new ActionListener() {
             @Override
@@ -133,6 +144,10 @@ public class vlcController {
         });
     }
 
+    /**
+     * This handles all the listeners for the Media Player
+     * @param panel
+     */
     private void initMediaPlayerListeners(final vlcPanel panel) {
         panel.getMediaPlayer().addMediaPlayerEventListener(new MediaPlayerEventListener() {
             @Override
@@ -210,7 +225,10 @@ public class vlcController {
             @Override
             public void videoOutput(MediaPlayer player, int newCount) {
                 // Set the canvas to match the size of the parent panel
-                panel.getCanvas().setSize(panel.getRootParent().getPreferredSize());
+                panel.getCanvas().setSize(
+                        panel.getRootParent().getPreferredSize().width,
+                        panel.getRootParent().getPreferredSize().height - panel.getPlaybackControllerPanel().getPreferredSize().height
+                );
                 panel.getRootParent().pack();
             }
 
@@ -268,7 +286,9 @@ public class vlcController {
         });
     }
 
-
+// ***********************************************************************************************
+// *  Getters and Setters
+// ***********************************************************************************************
     public vlcModel getModel() {
         return model;
     }
