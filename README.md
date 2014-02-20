@@ -12,5 +12,8 @@ This project used skeleton (https://github.com/fractal/skeleton) to develop an i
 
 ------------
 
-Additional Notes - Original source code to implement vlcj with java was derived from https://github.com/p3s3us/jPlayer.  It was a simple player that was cloned, but the implementation has been drastically changed to motto after the MVC implementation.
+Implementation:
 
+VLC Model - 
+VLC Controller - 
+VLC View/Panel -
