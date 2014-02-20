@@ -4,6 +4,13 @@ import uk.co.caprica.vlcj.binding.internal.libvlc_media_t;
 import uk.co.caprica.vlcj.player.MediaPlayer;
 import uk.co.caprica.vlcj.player.MediaPlayerEventListener;
 
+import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
+import java.io.File;
+
 /**
  * Created by Dizzy on 2/19/14.
  */
@@ -23,11 +30,107 @@ public class vlcController {
 
         initMediaPlayerListeners(panel);
         initPlaybackControllers(panel);
+        initRootPanelListeners(panel);
 
     }
 
-    private void initPlaybackControllers(final vlcPanel panel) {
+    private void initRootPanelListeners(final vlcPanel panel) {
+        if(panel.getRootParent() != null) {
+            panel.getRootParent().addWindowListener(new WindowListener() {
+                @Override
+                public void windowOpened(WindowEvent e) {
+                }
 
+                @Override
+                public void windowClosing(WindowEvent e) {
+                    panel.getMediaPlayer().release();
+                    panel.getFactory().release();
+                    System.exit(0);
+                }
+
+                @Override
+                public void windowClosed(WindowEvent e) {
+                }
+
+                @Override
+                public void windowIconified(WindowEvent e) {
+                }
+
+                @Override
+                public void windowDeiconified(WindowEvent e) {
+                }
+
+                @Override
+                public void windowActivated(WindowEvent e) {
+                }
+
+                @Override
+                public void windowDeactivated(WindowEvent e) {
+                }
+
+            });
+        } else {
+            System.out.println("RootParent = null\nPlayer not displayable");
+        }
+    }
+
+    private void initPlaybackControllers(final vlcPanel panel) {
+        panel.getPlayButton().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                panel.getMediaPlayer().play();
+            }
+        });
+
+        panel.getPauseButton().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                panel.getMediaPlayer().pause();
+            }
+        });
+
+        panel.getStopButton().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                panel.getMediaPlayer().stop();
+            }
+        });
+
+        panel.getVideoRateComboBox().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                VideoPlaybackSpeed f = (VideoPlaybackSpeed) panel.getVideoRateComboBox().getSelectedItem();
+                panel.getMediaPlayer().setRate(f.getVideoRate());
+            }
+        });
+
+        panel.getSubmitButton().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (panel.getMrl() != null) {
+                    String path = panel.getMrl().getText();
+                    System.out.println("Playing: " + path);
+                    panel.getMediaPlayer().playMedia(path);
+                }
+            }
+        });
+
+
+        panel.getOpenButton().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int returnVal = panel.getFileChooser().showOpenDialog(panel);
+
+                if (returnVal == JFileChooser.APPROVE_OPTION) {
+                    File file = panel.getFileChooser().getSelectedFile();
+                    //This is where a real application would open the file.
+                    panel.getMrl().setText(panel.getFileChooser().getSelectedFile().getAbsolutePath());
+                    System.out.println("Opening: " + file.getName() + ".\n");
+                } else {
+                    System.out.println("Open command cancelled by user.\n");
+                }
+            }
+        });
     }
 
     private void initMediaPlayerListeners(final vlcPanel panel) {

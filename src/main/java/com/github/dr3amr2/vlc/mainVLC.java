@@ -17,7 +17,6 @@ public class mainVLC {
 
     public static void main(String[] args) {
 
-
         NativeLibrary.addSearchPath("libvlc", "C:\\Program Files\\VideoLAN\\VLC");
 
         SwingUtilities.invokeLater(new Runnable() {
@@ -44,16 +43,17 @@ public class mainVLC {
         frame.add(controller.getPanel());
         frame.pack();
         frame.setVisible(true);
+
     }
 
     private static void initVlcPlayer(){
+
         JFrame frame = new JFrame();
         frame.setPreferredSize(new Dimension(600,600));
         Player p = new Player(frame);
         p.createToolTip(); // actually doing nothing
         frame.pack();
         frame.setVisible(true);
+
     }
-
-
 }
