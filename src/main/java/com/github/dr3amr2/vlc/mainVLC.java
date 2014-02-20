@@ -12,7 +12,7 @@ import java.util.Properties;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 
-public class GUI {
+public class mainVLC {
     public static void main(String[] args) {
         NativeLibrary.addSearchPath("libvlc", "C:\\Program Files\\VideoLAN\\VLC");
 
