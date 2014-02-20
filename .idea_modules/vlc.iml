@@ -34,6 +34,8 @@
     <orderEntry type="library" name="SBT: net.java.dev.jna:platform:3.5.2" level="project" />
     <orderEntry type="library" name="SBT: com.miglayout:miglayout:3.7.4" level="project" />
     <orderEntry type="library" name="SBT: log4j:log4j:1.2.17" level="project" />
+    <orderEntry type="library" name="SBT: com.jgoodies:forms:1.2.0" level="project" />
+    <orderEntry type="library" name="SBT: com.jgoodies:jgoodies-common:1.4.0" level="project" />
     <orderEntry type="library" scope="TEST" name="SBT: org.scalatest:scalatest_2.10:2.0.1-SNAP:test" level="project" />
     <orderEntry type="library" scope="TEST" name="SBT: org.scala-lang:scala-reflect:2.10.0:test" level="project" />
     <orderEntry type="library" scope="TEST" name="SBT: org.scalacheck:scalacheck_2.10:1.11.2:test" level="project" />
