@@ -19,7 +19,6 @@ import uk.co.caprica.vlcj.player.MediaPlayerFactory;
 import uk.co.caprica.vlcj.binding.internal.libvlc_media_t;
 import uk.co.caprica.vlcj.player.MediaPlayer;
 import uk.co.caprica.vlcj.player.MediaPlayerEventListener;
-import uk.co.caprica.vlcj.player.MediaPlayerFactory;
 import uk.co.caprica.vlcj.player.embedded.EmbeddedMediaPlayer;
 import uk.co.caprica.vlcj.player.embedded.videosurface.CanvasVideoSurface;
 
@@ -28,32 +27,29 @@ public class Player extends JPanel {
     final static MediaPlayerFactory factory = new MediaPlayerFactory();
     final static EmbeddedMediaPlayer mediaPlayer = factory.newEmbeddedMediaPlayer();
 
-    static JPanel controls = new JPanel(new MigLayout());
-    static JPanel panel = new JPanel();
-
+    static JPanel playbackControllerPanel = new JPanel(new MigLayout());
 
     private String filePath;
-
     JSlider positionSlider = new JSlider(JSlider.HORIZONTAL, 0, 100, 5);
 
 
-    Player(Container c) {
-        panel.setLayout(new MigLayout("debug"));
-        final JPanel player = new JPanel();
-        panel.setSize(300, 300);
+    public Player(Container c) {
+        setLayout(new MigLayout("debug"));
+        final JPanel canvasPanel = new JPanel();
+        setSize(300, 300);
 
         makeControls();
 
-        final Canvas canv = new Canvas();
-        canv.setSize(200, 200);
+        final Canvas canvas = new Canvas();
+        canvas.setSize(200, 200);
 
-        player.add(canv);
+        canvasPanel.add(canvas);
 
-        panel.add(player);
-        panel.add(controls, "south");
-        c.add(panel);
+        add(canvasPanel);
+        add(playbackControllerPanel, "south");
+        c.add(this);
 
-        CanvasVideoSurface surface = factory.newVideoSurface(canv);
+        CanvasVideoSurface surface = factory.newVideoSurface(canvas);
         mediaPlayer.setVideoSurface(surface);
 
         //		while(mediaPlayer.isPlayable() || mediaPlayer.isPlaying()) {
@@ -139,7 +135,7 @@ public class Player extends JPanel {
             @Override
             public void videoOutput(MediaPlayer player, int newCount) {
                 // Set the canvas to match the size of the parent panel
-                canv.setSize(getRootParent().getPreferredSize());
+                canvas.setSize(getRootParent().getPreferredSize());
                 getRootParent().pack();
             }
 
@@ -306,19 +302,19 @@ public class Player extends JPanel {
             }
         });
 
-        controls.add(play);
-        controls.add(pause);
-        controls.add(stop, "wrap");
-        controls.add(videoRate);
-        controls.add(open);
-        controls.add(submit);
+        playbackControllerPanel.add(play);
+        playbackControllerPanel.add(pause);
+        playbackControllerPanel.add(stop, "wrap");
+        playbackControllerPanel.add(videoRate);
+        playbackControllerPanel.add(open);
+        playbackControllerPanel.add(submit);
     }
 
     // ***********************************************************************************************
     // *  Getters and Setters
     // ***********************************************************************************************
     private JFrame getRootParent() {
-        Component c = panel;
+        Component c = this;
         while(c.getParent() != null) {
             c = c.getParent();
         }
