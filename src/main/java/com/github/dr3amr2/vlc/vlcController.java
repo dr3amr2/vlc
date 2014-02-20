@@ -20,6 +20,17 @@ public class vlcController {
     }
 
     private void attach(vlcModel model, final vlcPanel panel) {
+
+        initMediaPlayerListeners(panel);
+        initPlaybackControllers(panel);
+
+    }
+
+    private void initPlaybackControllers(final vlcPanel panel) {
+
+    }
+
+    private void initMediaPlayerListeners(final vlcPanel panel) {
         panel.getMediaPlayer().addMediaPlayerEventListener(new MediaPlayerEventListener() {
             @Override
             public void mediaChanged(MediaPlayer mediaPlayer,
@@ -152,7 +163,6 @@ public class vlcController {
             }
 
         });
-
     }
 
 

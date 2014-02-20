@@ -1,9 +1,6 @@
 package com.github.dr3amr2.vlc;
 
 import net.miginfocom.swing.MigLayout;
-import uk.co.caprica.vlcj.binding.internal.libvlc_media_t;
-import uk.co.caprica.vlcj.player.MediaPlayer;
-import uk.co.caprica.vlcj.player.MediaPlayerEventListener;
 import uk.co.caprica.vlcj.player.MediaPlayerFactory;
 import uk.co.caprica.vlcj.player.embedded.EmbeddedMediaPlayer;
 import uk.co.caprica.vlcj.player.embedded.videosurface.CanvasVideoSurface;
@@ -23,19 +20,13 @@ public class vlcPanel extends JPanel {
 
     final static MediaPlayerFactory factory = new MediaPlayerFactory();
 
-
     final static EmbeddedMediaPlayer mediaPlayer = factory.newEmbeddedMediaPlayer();
 
     static JPanel playbackControllerPanel = new JPanel(new MigLayout());
 
     private String filePath;
 
-
-
     JSlider positionSlider = new JSlider(JSlider.HORIZONTAL, 0, 100, 5);
-
-
-
 
     final Canvas canvas = new Canvas();
 
@@ -107,67 +98,67 @@ public class vlcPanel extends JPanel {
         mediaPlayer.playMedia(mrl);
     }
 
+    private JButton submitButton = new JButton("Load this video");
+    private JButton openButton = new JButton("Open");
+    private JButton playButton = new JButton("Play");
+    private JButton pauseButton = new JButton("Pause");
+    private JButton stopButton = new JButton("Stop");
+    private final JComboBox videoRateComboBox = new JComboBox(VideoPlaybackSpeed.values());
+    private final JFileChooser fileChooser = new JFileChooser();
+    final JTextField mrl = new JTextField(10);
+
     private void makeControls() {
-        JButton play = new JButton("play");
-        play.addActionListener(new ActionListener() {
+        playButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 mediaPlayer.play();
             }
         });
 
-        JButton pause = new JButton("pause");
-        pause.addActionListener(new ActionListener() {
+        pauseButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 mediaPlayer.pause();
             }
         });
 
-        JButton stop = new JButton("stop");
-        stop.addActionListener(new ActionListener() {
+        stopButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 mediaPlayer.stop();
             }
         });
 
-        final JComboBox videoRate = new JComboBox(com.github.dr3amr2.vlc.videoRate.values());
-        videoRate.addActionListener(new ActionListener() {
+        videoRateComboBox.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                videoRate f = (videoRate) videoRate.getSelectedItem();
+                VideoPlaybackSpeed f = (VideoPlaybackSpeed) videoRateComboBox.getSelectedItem();
                 mediaPlayer.setRate(f.getVideoRate());
             }
         });
 
-        final JTextField mrl = new JTextField(10);
-
-        JButton submit = new JButton("Load this video");
-        submit.addActionListener(new ActionListener() {
+        submitButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-//                String path = mrl.getText();
-                String path = getFilePath();
-                System.out.println("PATH: \"" +path +"\"");
-                mediaPlayer.playMedia(path);
-                System.out.println("Playing: " +path);
-                // FIXME: check if path == null
+                if (mrl != null) {
+                    String path = mrl.getText();
+                    System.out.println("Playing: " + path);
+                    mediaPlayer.playMedia(path);
+                }
             }
         });
 
-        final JFileChooser fc = new JFileChooser();
 
-        JButton open = new JButton("Open");
-        open.addActionListener(new ActionListener() {
+        openButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                int returnVal = fc.showOpenDialog(vlcPanel.this);
+                int returnVal = fileChooser.showOpenDialog(vlcPanel.this);
 
                 if (returnVal == JFileChooser.APPROVE_OPTION) {
-                    File file = fc.getSelectedFile();
+                    File file = fileChooser.getSelectedFile();
                     //This is where a real application would open the file.
-                    setFilePath(fc.getSelectedFile().getAbsolutePath());
+                    setFilePath(fileChooser.getSelectedFile().getAbsolutePath());
+                    mrl.setText(getFilePath());
                     System.out.println("Opening: " + file.getName() + ".\n");
                 } else {
                     System.out.println("Open command cancelled by user.\n");
@@ -175,12 +166,13 @@ public class vlcPanel extends JPanel {
             }
         });
 
-        playbackControllerPanel.add(play);
-        playbackControllerPanel.add(pause);
-        playbackControllerPanel.add(stop, "wrap");
-        playbackControllerPanel.add(videoRate);
-        playbackControllerPanel.add(open);
-        playbackControllerPanel.add(submit);
+        playbackControllerPanel.add(playButton);
+        playbackControllerPanel.add(pauseButton);
+        playbackControllerPanel.add(stopButton);
+        playbackControllerPanel.add(videoRateComboBox, "wrap");
+        playbackControllerPanel.add(openButton);
+        playbackControllerPanel.add(mrl, "span, grow");
+        playbackControllerPanel.add(submitButton, "span, grow");
     }
 
     // ***********************************************************************************************
