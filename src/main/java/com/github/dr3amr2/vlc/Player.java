@@ -11,10 +11,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
+import javax.swing.*;
 
 import net.miginfocom.swing.MigLayout;
 import uk.co.caprica.vlcj.player.MediaPlayerFactory;
@@ -131,7 +128,7 @@ public class Player extends JPanel {
 
             @Override
             public void videoOutput(MediaPlayer player, int newCount) {
-//                canv.setSize(mediaPlayer.getVideoDimension());
+                // Set the canvas to match the size of the parent panel
                 canv.setSize(getRootParent().getPreferredSize());
                 getRootParent().pack();
             }
@@ -256,6 +253,15 @@ public class Player extends JPanel {
             }
         });
 
+        final JComboBox videoRate = new JComboBox(com.github.dr3amr2.vlc.videoRate.values());
+        videoRate.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                videoRate f = (videoRate) videoRate.getSelectedItem();
+                mediaPlayer.setRate(f.getVideoRate());
+            }
+        });
+
         final JTextField mrl = new JTextField(10);
 
         JButton submit = new JButton("Load this video");
@@ -273,6 +279,7 @@ public class Player extends JPanel {
         controls.add(play);
         controls.add(pause);
         controls.add(stop, "wrap");
+        controls.add(videoRate);
         controls.add(mrl);
         controls.add(submit);
     }
