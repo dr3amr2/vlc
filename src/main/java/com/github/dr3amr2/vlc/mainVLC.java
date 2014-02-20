@@ -13,12 +13,11 @@ import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 
 public class mainVLC {
+    static vlcController controller;
 
     public static void main(String[] args) {
 
-    vlcController controller;
 
-        controller = new vlcController(new vlcModel(), new vlcPanel());
         NativeLibrary.addSearchPath("libvlc", "C:\\Program Files\\VideoLAN\\VLC");
 
         SwingUtilities.invokeLater(new Runnable() {
@@ -29,10 +28,22 @@ public class mainVLC {
                 Properties props = System.getProperties();
                 props.setProperty("vlcj.log", "DEBUG");
 
-                initVlcPlayer();
+                // initVlcPlayer();
+
+                initVlcMvcMethod();
 
             }
         });
+    }
+
+    private static void initVlcMvcMethod() {
+
+        JFrame frame = new JFrame();
+        frame.setPreferredSize(new Dimension(600,600));
+        controller = new vlcController(new vlcModel(), new vlcPanel(frame));
+        frame.add(controller.getPanel());
+        frame.pack();
+        frame.setVisible(true);
     }
 
     private static void initVlcPlayer(){
