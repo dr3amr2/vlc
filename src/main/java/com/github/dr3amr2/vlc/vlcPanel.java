@@ -14,12 +14,19 @@ import uk.co.caprica.vlcj.player.embedded.videosurface.CanvasVideoSurface;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.image.BufferedImage;
 
 public class vlcPanel extends JPanel {
 
     final static MediaPlayerFactory factory = new MediaPlayerFactory();
     final static EmbeddedMediaPlayer mediaPlayer = factory.newEmbeddedMediaPlayer();
     CanvasVideoSurface surface;
+
+    public PlaybackControllerPanel getControllerPanel() {
+        return controllerPanel;
+    }
+
+    PlaybackControllerPanel controllerPanel;
 
     public JPanel getPlaybackControllerPanel() {
         return playbackControllerPanel;
@@ -44,6 +51,7 @@ public class vlcPanel extends JPanel {
 
         canvasPanel = new JPanel();
         playbackControllerPanel = new JPanel(new MigLayout());
+        controllerPanel = new PlaybackControllerPanel();
 
         setLayout(new MigLayout());
 
@@ -62,7 +70,8 @@ public class vlcPanel extends JPanel {
         canvasPanel.add(canvas);
 
         add(canvasPanel);
-        add(playbackControllerPanel, "south");
+//        add(playbackControllerPanel, "south");
+        add(controllerPanel, "south");
         c.add(this);
         surface = factory.newVideoSurface(canvas);
         mediaPlayer.setVideoSurface(surface);
@@ -76,24 +85,9 @@ public class vlcPanel extends JPanel {
     }
 
     private void initComponents() {
-        submitButton = new JButton("Load this video");
-        openButton = new JButton("Open");
-        playButton = new JButton("Play");
-        pauseButton = new JButton("Pause");
-        stopButton = new JButton("Stop");
-        videoRateComboBox = new JComboBox(VideoPlaybackSpeed.values());
         fileChooser = new JFileChooser();
         mrl = new JTextField(10);
         positionSlider = new JSlider(JSlider.HORIZONTAL, 0, 100, 5);
-
-        playbackControllerPanel.add(playButton);
-        playbackControllerPanel.add(pauseButton);
-        playbackControllerPanel.add(stopButton);
-        playbackControllerPanel.add(videoRateComboBox, "wrap");
-        playbackControllerPanel.add(openButton);
-        playbackControllerPanel.add(mrl, "grow");
-        playbackControllerPanel.add(submitButton, "wrap");
-        playbackControllerPanel.add(positionSlider, "span, grow");
     }
 
     public void resize(Component c){
@@ -149,35 +143,11 @@ public class vlcPanel extends JPanel {
         return factory;
     }
 
-    public JButton getSubmitButton() {
-        return submitButton;
-    }
-
-    public JButton getOpenButton() {
-        return openButton;
-    }
-
-    public JButton getPlayButton() {
-        return playButton;
-    }
-
-    public JButton getPauseButton() {
-        return pauseButton;
-    }
-
-    public JButton getStopButton() {
-        return stopButton;
-    }
-
     public JComboBox getVideoRateComboBox() {
         return videoRateComboBox;
     }
 
     public JFileChooser getFileChooser() {
         return fileChooser;
-    }
-
-    public JTextField getMrl() {
-        return mrl;
     }
 }

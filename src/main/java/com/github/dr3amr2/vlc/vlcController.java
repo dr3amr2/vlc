@@ -11,6 +11,9 @@ import uk.co.caprica.vlcj.player.MediaPlayer;
 import uk.co.caprica.vlcj.player.MediaPlayerEventListener;
 
 import javax.swing.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
+import java.awt.*;
 import java.awt.event.*;
 import java.io.File;
 
@@ -92,29 +95,47 @@ public class vlcController {
      * @param panel
      */
     private void initPlaybackControllers(final vlcPanel panel) {
-        panel.getPlayButton().addActionListener(new ActionListener() {
+
+        //---- playButton ----
+        panel.getControllerPanel().getPlayButton().setMargin(new Insets(0,0,0,0));
+        panel.getControllerPanel().getPlayButton().setIcon(model.SMALL_PLAY_ICON);
+        panel.getControllerPanel().getPlayButton().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                panel.getMediaPlayer().play();
+//                panel.getMediaPlayer().play();
+                if (model.getMediaFilePath() != null) {
+                    String path = model.getMediaFilePath();
+                    System.out.println("Playing: " + path);
+
+                    panel.getMediaPlayer().playMedia(path , model.getVlcOptions());
+                }
             }
         });
 
-        panel.getPauseButton().addActionListener(new ActionListener() {
+        //---- pauseButton ----
+        panel.getControllerPanel().getPauseButton().setMargin(new Insets(0,0,0,0));
+        panel.getControllerPanel().getPauseButton().setIcon(model.SMALL_PAUSE_ICON);
+        panel.getControllerPanel().getPauseButton().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 panel.getMediaPlayer().pause();
             }
         });
 
-        panel.getStopButton().addActionListener(new ActionListener() {
+        //---- stopButton ----
+        panel.getControllerPanel().getStopButton().setMargin(new Insets(0, 0, 0, 0));
+        panel.getControllerPanel().getStopButton().setIcon(model.SMALL_STOP_ICON);
+        panel.getControllerPanel().getStopButton().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 panel.getMediaPlayer().stop();
             }
         });
 
-        panel.getVideoRateComboBox().setSelectedItem(VideoPlaybackSpeed.REGULAR);
-        panel.getVideoRateComboBox().addActionListener(new ActionListener() {
+        //---- videoSpeedRateComboBox ----
+        panel.getControllerPanel().getVideoSpeedRateComboBox().setModel(new DefaultComboBoxModel(VideoPlaybackSpeed.values()));
+        panel.getControllerPanel().getVideoSpeedRateComboBox().setSelectedItem(VideoPlaybackSpeed.REGULAR);
+        panel.getControllerPanel().getVideoSpeedRateComboBox().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 VideoPlaybackSpeed f = (VideoPlaybackSpeed) panel.getVideoRateComboBox().getSelectedItem();
@@ -122,33 +143,55 @@ public class vlcController {
             }
         });
 
-        panel.getSubmitButton().addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if (panel.getMrl() != null) {
-                    String path = panel.getMrl().getText();
-                    System.out.println("Playing: " + path);
-                    panel.getMediaPlayer().playMedia(path);
-                }
-            }
-        });
-
-
-        panel.getOpenButton().addActionListener(new ActionListener() {
+        //---- openButton ----
+        panel.getControllerPanel().getOpenButton().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 int returnVal = panel.getFileChooser().showOpenDialog(panel);
 
                 if (returnVal == JFileChooser.APPROVE_OPTION) {
                     File file = panel.getFileChooser().getSelectedFile();
-                    //This is where a real application would open the file.
-                    panel.getMrl().setText(panel.getFileChooser().getSelectedFile().getAbsolutePath());
+                    model.setMediaFilePath(panel.getFileChooser().getSelectedFile().getAbsolutePath());
                     System.out.println("Opening: " + file.getName() + ".\n");
+
+                    if (model.getMediaFilePath() != null) {
+                        String path = model.getMediaFilePath();
+                        System.out.println("Playing: " + path);
+                        model.setMediaName(panel.getFileChooser().getName());
+                        panel.getControllerPanel().getMediaNameLabel().setText(model.getMediaName());
+                        panel.getMediaPlayer().playMedia(path , model.getVlcOptions());
+                    }
+
                 } else {
                     System.out.println("Open command cancelled by user.\n");
                 }
             }
         });
+
+        //---- audioButton ----
+        panel.getControllerPanel().getAudioButton().setMargin(new Insets(0, 0, 0, 0));
+        panel.getControllerPanel().getAudioButton().setIcon(model.SMALL_VOLUME_ICON);
+        panel.getControllerPanel().getAudioButton().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
+
+        panel.getControllerPanel().getAudioVolumeSlider().addChangeListener(new ChangeListener() {
+            @Override
+            public void stateChanged(ChangeEvent e) {
+
+            }
+        });
+
+        panel.getControllerPanel().getVideoPositionSlider().addChangeListener(new ChangeListener() {
+            @Override
+            public void stateChanged(ChangeEvent e) {
+
+            }
+        });
+
     }
 
     /**
@@ -202,7 +245,7 @@ public class vlcController {
             public void positionChanged(MediaPlayer mediaPlayer,
                                         float newPosition) {
                 int iPos = (int)(newPosition * 100.0);
-                panel.getPositionSlider().setValue(iPos);
+                panel.getControllerPanel().getVideoPositionSlider().setValue(iPos);
             }
 
             @Override
