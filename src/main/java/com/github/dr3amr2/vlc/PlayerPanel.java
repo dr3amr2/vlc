@@ -28,9 +28,6 @@ import uk.co.caprica.vlcj.player.*;
 import uk.co.caprica.vlcj.player.embedded.DefaultFullScreenStrategy;
 import uk.co.caprica.vlcj.player.embedded.EmbeddedMediaPlayer;
 import uk.co.caprica.vlcj.player.embedded.FullScreenStrategy;
-import uk.co.caprica.vlcj.runtime.RuntimeUtil;
-import uk.co.caprica.vlcj.runtime.windows.WindowsRuntimeUtil;
-//import uk.co.caprica.vlcj.test.VlcjTest;
 
 import javax.swing.*;
 import java.awt.*;
@@ -50,39 +47,23 @@ import java.util.List;
  * Java7 provides -Dsun.java2d.xrender=True or -Dsun.java2d.xrender=true, might give some general
  * performance improvements in graphics rendering.
  */
-public class PlayerPanel{
+public class PlayerPanel extends JPanel{
 
-    private final JFrame mainFrame;
-    private final Canvas videoSurface;
-    private final JPanel controlsPanel;
-//    private final JPanel videoAdjustPanel;
-
-//    private final JFrame equalizerFrame;
+//    private JPanel mainFrame;
+    private Canvas videoSurface;
+    private JPanel controlsPanel;
 
     private MediaPlayerFactory mediaPlayerFactory;
 
     private EmbeddedMediaPlayer mediaPlayer;
+    private List<String> vlcArgs;
 
-    private Equalizer equalizer;
+    public PlayerPanel() {
+//        initComponents();
 
-    public static void main(final String[] args) throws Exception {
-        NativeLibrary.addSearchPath("libvlc", "C:\\Program Files\\VideoLAN\\VLC");
-
-        LibVlc libVlc = LibVlcFactory.factory().create();
-
-        Logger.info("  version: {}", libVlc.libvlc_get_version());
-        Logger.info(" compiler: {}", libVlc.libvlc_get_compiler());
-        Logger.info("changeset: {}", libVlc.libvlc_get_changeset());
-
-        SwingUtilities.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                new PlayerPanel(args);
-            }
-        });
     }
 
-    public PlayerPanel(String[] args) {
+    private void initComponents() {
         videoSurface = new Canvas();
 
         videoSurface.setBackground(Color.black);
@@ -97,13 +78,7 @@ public class PlayerPanel{
         videoSurface.addMouseMotionListener(mouseListener);
         videoSurface.addMouseWheelListener(mouseListener);
 
-        List<String> vlcArgs = new ArrayList<String>();
 
-        vlcArgs.add("--no-snapshot-preview");
-        vlcArgs.add("--quiet");
-        vlcArgs.add("--quiet-synchro");
-        vlcArgs.add("--intf");
-        vlcArgs.add("dummy");
 
         // Special case to help out users on Windows (supposedly this is not actually needed)...
 //        if(RuntimeUtil.isWindows()) {
@@ -115,12 +90,11 @@ public class PlayerPanel{
 //
 //        vlcArgs.add("--plugin-path=" + System.getProperty("user.home") + "/.vlcj");
 
-        Logger.debug("vlcArgs={}", vlcArgs);
+//        Logger.debug("vlcArgs={}", vlcArgs);
 
-        mainFrame = new JFrame("VLCJ Test Player");
-        mainFrame.setIconImage(new ImageIcon(getClass().getResource("/icons/vlcj-logo.png")).getImage());
+//        mainFrame = new JPanel();
 
-        FullScreenStrategy fullScreenStrategy = new DefaultFullScreenStrategy(mainFrame);
+//        FullScreenStrategy fullScreenStrategy = new DefaultFullScreenStrategy(mainFrame);
 
         mediaPlayerFactory = new MediaPlayerFactory(vlcArgs.toArray(new String[vlcArgs.size()]));
         mediaPlayerFactory.setUserAgent("vlcj test player");
@@ -128,7 +102,7 @@ public class PlayerPanel{
         List<AudioOutput> audioOutputs = mediaPlayerFactory.getAudioOutputs();
         Logger.debug("audioOutputs={}", audioOutputs);
 
-        mediaPlayer = mediaPlayerFactory.newEmbeddedMediaPlayer(fullScreenStrategy);
+        mediaPlayer = mediaPlayerFactory.newEmbeddedMediaPlayer();
         mediaPlayer.setVideoSurface(mediaPlayerFactory.newVideoSurface(videoSurface));
         mediaPlayer.setPlaySubItems(true);
 
@@ -137,33 +111,37 @@ public class PlayerPanel{
 
         controlsPanel = new PlayerControlsPanel(mediaPlayer);
 
-        mainFrame.setLayout(new BorderLayout());
-        mainFrame.setBackground(Color.black);
-        mainFrame.add(videoSurface, BorderLayout.CENTER);
-        mainFrame.add(controlsPanel, BorderLayout.SOUTH);
-        mainFrame.pack();
-        mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        mainFrame.addWindowListener(new WindowAdapter() {
-            @Override
-            public void windowClosing(WindowEvent evt) {
-                Logger.debug("windowClosing(evt={})", evt);
+        setLayout(new BorderLayout());
+        setBackground(Color.black);
+        add(videoSurface, BorderLayout.CENTER);
+        add(controlsPanel, BorderLayout.SOUTH);
+//        mainFrame.pack();
+//        mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//        mainFrame.addWindowListener(new WindowAdapter() {
+//            @Override
+//            public void windowClosing(WindowEvent evt) {
+//                Logger.debug("windowClosing(evt={})", evt);
+//
+//                if(mediaPlayer != null) {
+//                    mediaPlayer.release();
+//                    mediaPlayer = null;
+//                }
+//
+//                if(mediaPlayerFactory != null) {
+//                    mediaPlayerFactory.release();
+//                    mediaPlayerFactory = null;
+//                }
+//            }
+//        });
 
-                if(mediaPlayer != null) {
-                    mediaPlayer.release();
-                    mediaPlayer = null;
-                }
-
-                if(mediaPlayerFactory != null) {
-                    mediaPlayerFactory.release();
-                    mediaPlayerFactory = null;
-                }
-            }
-        });
-
-        mainFrame.setVisible(true);
+        setVisible(true);
 
         mediaPlayer.addMediaPlayerEventListener(new MediaPlayerEventListener());
+    }
 
+    public void attachOptions(List<String> vlcArgs) {
+        this.vlcArgs = vlcArgs;
+        initComponents();
     }
 
     private final class MediaPlayerEventListener extends MediaPlayerEventAdapter {
@@ -214,7 +192,7 @@ public class PlayerPanel{
                     @Override
                     public void run() {
                         videoSurface.setSize(dimension);
-                        mainFrame.pack();
+//                        mainFrame.pack();
                     }
                 });
             }
