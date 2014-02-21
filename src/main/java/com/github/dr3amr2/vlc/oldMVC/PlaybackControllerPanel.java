@@ -2,9 +2,11 @@
  * Created by JFormDesigner on Thu Feb 20 14:20:09 MST 2014
  */
 
-package com.github.dr3amr2.vlc;
+package com.github.dr3amr2.vlc.oldMVC;
 
 import javax.swing.*;
+
+import com.github.dr3amr2.vlc.utils.ImageUtils;
 import com.jgoodies.forms.layout.*;
 
 /**

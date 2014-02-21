@@ -1,4 +1,4 @@
-package com.github.dr3amr2.vlc;
+package com.github.dr3amr2.vlc.oldMVC;
 
 /**
  * Created by Dizzy on 2/19/14.
@@ -7,14 +7,12 @@ package com.github.dr3amr2.vlc;
  */
 
 import net.miginfocom.swing.MigLayout;
-import uk.co.caprica.vlcj.component.EmbeddedMediaListPlayerComponent;
 import uk.co.caprica.vlcj.player.MediaPlayerFactory;
 import uk.co.caprica.vlcj.player.embedded.EmbeddedMediaPlayer;
 import uk.co.caprica.vlcj.player.embedded.videosurface.CanvasVideoSurface;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.image.BufferedImage;
 
 public class vlcPanel extends JPanel {
 
@@ -103,7 +101,6 @@ public class vlcPanel extends JPanel {
 
         surface = factory.newVideoSurface(canvas);
         mediaPlayer.setVideoSurface(surface);
-
         repaint();
 
     }

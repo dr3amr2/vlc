@@ -1,4 +1,4 @@
-package com.github.dr3amr2.vlc;
+package com.github.dr3amr2.vlc.utils;
 
 /**
  * Created by Dizzy on 2/19/14.
@@ -14,6 +14,8 @@ import java.io.File;
 
 import javax.swing.*;
 
+import com.github.dr3amr2.vlc.oldMVC.PlayerControlsPanel;
+import com.github.dr3amr2.vlc.oldMVC.VideoPlaybackSpeed;
 import net.miginfocom.swing.MigLayout;
 import uk.co.caprica.vlcj.player.MediaPlayerFactory;
 import uk.co.caprica.vlcj.binding.internal.libvlc_media_t;
@@ -31,6 +33,7 @@ public class Player extends JPanel {
 
     private String filePath;
     JSlider positionSlider = new JSlider(JSlider.HORIZONTAL, 0, 100, 5);
+    PlayerControlsPanel playerControlsPanel;
 
 
     public Player(Container c) {
@@ -38,7 +41,9 @@ public class Player extends JPanel {
         final JPanel canvasPanel = new JPanel();
         setSize(300, 300);
 
-        makeControls();
+//        makeControls();
+        playerControlsPanel = new PlayerControlsPanel(mediaPlayer);
+        playbackControllerPanel.add(playerControlsPanel);
 
         final Canvas canvas = new Canvas();
         canvas.setSize(200, 200);

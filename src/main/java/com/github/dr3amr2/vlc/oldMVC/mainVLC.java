@@ -1,9 +1,13 @@
-package com.github.dr3amr2.vlc;
+package com.github.dr3amr2.vlc.oldMVC;
 
 /**
  * Created by Dizzy on 2/19/14.
  *
  */
+import com.github.dr3amr2.vlc.oldMVC.vlcController;
+import com.github.dr3amr2.vlc.oldMVC.vlcModel;
+import com.github.dr3amr2.vlc.oldMVC.vlcPanel;
+import com.github.dr3amr2.vlc.utils.Player;
 import com.sun.jna.NativeLibrary;
 
 import java.awt.*;
@@ -27,9 +31,9 @@ public class mainVLC {
                 Properties props = System.getProperties();
                 props.setProperty("vlcj.log", "WARN");
 
-                // initVlcPlayer();
+                initVlcPlayer();
 
-                initVlcMvcMethod();
+//                initVlcMvcMethod();
 
             }
         });

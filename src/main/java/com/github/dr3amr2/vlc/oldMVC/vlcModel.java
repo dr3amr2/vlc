@@ -1,4 +1,6 @@
-package com.github.dr3amr2.vlc;
+package com.github.dr3amr2.vlc.oldMVC;
+
+import com.github.dr3amr2.vlc.utils.ImageUtils;
 
 import javax.swing.*;
 import java.awt.image.BufferedImage;

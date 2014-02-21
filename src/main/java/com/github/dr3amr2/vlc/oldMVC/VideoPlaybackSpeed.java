@@ -1,4 +1,4 @@
-package com.github.dr3amr2.vlc;
+package com.github.dr3amr2.vlc.oldMVC;
 
 /**
  * Created by Dizzy on 2/19/14.

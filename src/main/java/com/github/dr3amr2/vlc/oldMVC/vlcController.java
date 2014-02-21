@@ -1,4 +1,4 @@
-package com.github.dr3amr2.vlc;
+package com.github.dr3amr2.vlc.oldMVC;
 
 /**
  * Created by Dizzy on 2/19/14.
@@ -179,9 +179,30 @@ public class vlcController {
             }
         });
 
-        panel.getControllerPanel().getVideoPositionSlider().addChangeListener(new ChangeListener() {
+        panel.getControllerPanel().getVideoPositionSlider().addMouseListener(new MouseListener() {
             @Override
-            public void stateChanged(ChangeEvent e) {
+            public void mouseClicked(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+//                panel.getMediaPlayer().setPosition(panel.getControllerPanel().getVideoPositionSlider().getValue());
+//                panel.getMediaPlayer().play();
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
 
             }
         });

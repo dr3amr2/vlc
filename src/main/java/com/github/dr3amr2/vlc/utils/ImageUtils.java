@@ -1,4 +1,4 @@
-package com.github.dr3amr2.vlc;
+package com.github.dr3amr2.vlc.utils;
 
 import org.apache.log4j.Logger;
 
