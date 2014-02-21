@@ -63,6 +63,7 @@ public class PlayerControlsPanel extends JPanel {
     private JButton nextChapterButton;
 
     private JButton toggleMuteButton;
+    private boolean isMute = false;
     private JSlider volumeSlider;
 
     private JButton captureButton;
@@ -94,12 +95,6 @@ public class PlayerControlsPanel extends JPanel {
 
     private void createControls() {
         timeLabel = new JLabel("hh:mm:ss");
-
-        // positionProgressBar = new JProgressBar();
-        // positionProgressBar.setMinimum(0);
-        // positionProgressBar.setMaximum(1000);
-        // positionProgressBar.setValue(0);
-        // positionProgressBar.setToolTipText("Time");
 
         positionSlider = new JSlider();
         positionSlider.setMinimum(0);
@@ -138,7 +133,11 @@ public class PlayerControlsPanel extends JPanel {
         nextChapterButton.setToolTipText("Go to next chapter");
 
         toggleMuteButton = new JButton();
-        toggleMuteButton.setIcon(new ImageIcon(getClass().getClassLoader().getResource("icons/sound_mute.png")));
+        if(isMute){
+            toggleMuteButton.setIcon(new ImageIcon(getClass().getClassLoader().getResource("icons/sound_mute.png")));
+        } else {
+            toggleMuteButton.setIcon(new ImageIcon(getClass().getClassLoader().getResource("com/github/dr3amr2/vlc/icons/volume.png")));
+        }
         toggleMuteButton.setToolTipText("Toggle Mute");
 
         volumeSlider = new JSlider();
@@ -201,25 +200,24 @@ public class PlayerControlsPanel extends JPanel {
 
         bottomPanel.setLayout(new FlowLayout());
 
-        bottomPanel.add(previousChapterButton);
-        bottomPanel.add(rewindButton);
+//        bottomPanel.add(previousChapterButton);
+//        bottomPanel.add(rewindButton);
         bottomPanel.add(stopButton);
         bottomPanel.add(pauseButton);
         bottomPanel.add(playButton);
-        bottomPanel.add(fastForwardButton);
-        bottomPanel.add(nextChapterButton);
-
-        bottomPanel.add(volumeSlider);
+//        bottomPanel.add(fastForwardButton);
+//        bottomPanel.add(nextChapterButton);
         bottomPanel.add(toggleMuteButton);
+        bottomPanel.add(volumeSlider);
 
-        bottomPanel.add(captureButton);
+//        bottomPanel.add(captureButton);
 
         bottomPanel.add(ejectButton);
         bottomPanel.add(connectButton);
 
-        bottomPanel.add(fullScreenButton);
+//        bottomPanel.add(fullScreenButton);
 
-        bottomPanel.add(subTitlesButton);
+//        bottomPanel.add(subTitlesButton);
 
         add(bottomPanel, BorderLayout.SOUTH);
     }
@@ -351,6 +349,12 @@ public class PlayerControlsPanel extends JPanel {
         toggleMuteButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                isMute = !isMute;
+                if(isMute){
+                    toggleMuteButton.setIcon(new ImageIcon(getClass().getClassLoader().getResource("icons/sound_mute.png")));
+                } else {
+                    toggleMuteButton.setIcon(new ImageIcon(getClass().getClassLoader().getResource("com/github/dr3amr2/vlc/icons/volume.png")));
+                }
                 mediaPlayer.mute();
             }
         });
