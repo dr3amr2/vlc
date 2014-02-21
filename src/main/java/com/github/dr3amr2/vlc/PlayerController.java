@@ -1,14 +1,11 @@
 package com.github.dr3amr2.vlc;
 
-import com.github.dr3amr2.vlc.oldMVC.vlcPanel;
 import uk.co.caprica.vlcj.binding.internal.libvlc_media_t;
 import uk.co.caprica.vlcj.logger.Logger;
 import uk.co.caprica.vlcj.player.*;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ComponentAdapter;
-import java.awt.event.ComponentEvent;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 
@@ -33,17 +30,16 @@ public class PlayerController {
     }
 
     private void attach(PlayerModel model, PlayerPanel panel) {
-        initVlcArgs(model);
+        updateVlcArgs(model);
         panel.attachOptions(model.getVlcArgs());
 
         initRootPanelListeners(panel);
 
         panel.getMediaPlayer().addMediaPlayerEventListener(new MediaPlayerEventListener());
 
-
     }
 
-    private void initVlcArgs(PlayerModel model) {
+    private void updateVlcArgs(PlayerModel model) {
         model.getVlcArgs().add("--file-caching=6000");
     }
 

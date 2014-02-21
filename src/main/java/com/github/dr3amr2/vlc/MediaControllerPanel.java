@@ -1,24 +1,18 @@
 /*
- * Created by JFormDesigner on Thu Feb 20 14:20:09 MST 2014
+ * Created by JFormDesigner on Fri Feb 21 16:17:12 MST 2014
  */
 
-package com.github.dr3amr2.vlc.oldMVC;
+package com.github.dr3amr2.vlc;
 
 import javax.swing.*;
 import javax.swing.border.*;
-
-import com.github.dr3amr2.vlc.utils.ImageUtils;
 import com.jgoodies.forms.layout.*;
 
 /**
  * @author Dzuy Nguyen
  */
-public class PlaybackControllerPanel extends JPanel {
-    private static final ImageIcon VOLUME_ICON = new ImageIcon(ImageUtils.getImageFromResources("volume.png"));
-    private static final ImageIcon MUTE_ICON = new ImageIcon(ImageUtils.getImageFromResources("mute.png"));
-
-
-    public PlaybackControllerPanel() {
+public class MediaControllerPanel extends JPanel {
+    public MediaControllerPanel() {
         initComponents();
     }
 
@@ -42,16 +36,12 @@ public class PlaybackControllerPanel extends JPanel {
         return videoSpeedRateComboBox;
     }
 
-    public JSlider getAudioVolumeSlider() {
-        return audioVolumeSlider;
-    }
-
     public JButton getAudioButton() {
         return audioButton;
     }
 
-    public JSlider getVideoPositionSlider() {
-        return videoPositionSlider;
+    public JSlider getAudioVolumeSlider() {
+        return audioVolumeSlider;
     }
 
     public JTextField getClipLabelTextField() {
@@ -64,6 +54,10 @@ public class PlaybackControllerPanel extends JPanel {
 
     public JTextField getEndTimeTextField() {
         return endTimeTextField;
+    }
+
+    public JSlider getVideoPositionSlider() {
+        return videoPositionSlider;
     }
 
     public JTextField getCurrentTimeTextField() {
