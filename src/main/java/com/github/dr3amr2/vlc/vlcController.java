@@ -102,13 +102,7 @@ public class vlcController {
         panel.getControllerPanel().getPlayButton().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-//                panel.getMediaPlayer().play();
-                if (model.getMediaFilePath() != null) {
-                    String path = model.getMediaFilePath();
-                    System.out.println("Playing: " + path);
-
-                    panel.getMediaPlayer().playMedia(path , model.getVlcOptions());
-                }
+                panel.getMediaPlayer().play();
             }
         });
 
