@@ -45,7 +45,7 @@ public class vlcPlayerTest {
     private static void initVlcMvcMethod() {
         JFrame frame = new JFrame();
         frame.setPreferredSize(new Dimension(600,600));
-        controller = new PlayerController(new PlayerModel(), new PlayerPanel());
+        controller = new PlayerController(new PlayerModel(), new PlayerPanel(frame));
         frame.add(controller.getPanel());
         frame.pack();
         frame.setVisible(true);

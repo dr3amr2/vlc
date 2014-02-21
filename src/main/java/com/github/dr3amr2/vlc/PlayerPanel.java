@@ -53,12 +53,22 @@ public class PlayerPanel extends JPanel{
     private Canvas videoSurface;
     private JPanel controlsPanel;
 
+    public MediaPlayerFactory getMediaPlayerFactory() {
+        return mediaPlayerFactory;
+    }
+
+    public EmbeddedMediaPlayer getMediaPlayer() {
+        return mediaPlayer;
+    }
+
     private MediaPlayerFactory mediaPlayerFactory;
 
     private EmbeddedMediaPlayer mediaPlayer;
     private List<String> vlcArgs;
 
-    public PlayerPanel() {
+    public PlayerPanel(Container c) {
+        c.add(this);
+
 //        initComponents();
 
     }
@@ -308,5 +318,17 @@ public class PlayerPanel extends JPanel{
         public void mouseExited(MouseEvent e) {
             Logger.debug("mouseExited(e={})", e);
         }
+    }
+
+    public JFrame getRootParent() {
+        Component c = this;
+        while(c.getParent() != null) {
+            c = c.getParent();
+        }
+        if(c instanceof JFrame) {
+            return (JFrame)c;
+        }
+
+        return null;
     }
 }
