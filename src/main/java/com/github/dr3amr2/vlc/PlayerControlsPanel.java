@@ -68,7 +68,7 @@ public class PlayerControlsPanel extends JPanel {
 
     private JButton captureButton;
 
-    private JButton ejectButton;
+    private JButton openFileButton;
     private JButton connectButton;
 
     private JButton fullScreenButton;
@@ -151,9 +151,9 @@ public class PlayerControlsPanel extends JPanel {
         captureButton.setIcon(new ImageIcon(getClass().getClassLoader().getResource("icons/camera.png")));
         captureButton.setToolTipText("Take picture");
 
-        ejectButton = new JButton();
-        ejectButton.setIcon(new ImageIcon(getClass().getClassLoader().getResource("icons/control_eject_blue.png")));
-        ejectButton.setToolTipText("Load/eject media");
+        openFileButton = new JButton();
+        openFileButton.setIcon(new ImageIcon(getClass().getClassLoader().getResource("icons/control_eject_blue.png")));
+        openFileButton.setToolTipText("Load/eject media");
 
         connectButton = new JButton();
         connectButton.setIcon(new ImageIcon(getClass().getClassLoader().getResource("icons/connect.png")));
@@ -212,7 +212,7 @@ public class PlayerControlsPanel extends JPanel {
 
 //        bottomPanel.add(captureButton);
 
-        bottomPanel.add(ejectButton);
+        bottomPanel.add(openFileButton);
         bottomPanel.add(connectButton);
 
 //        bottomPanel.add(fullScreenButton);
@@ -376,11 +376,11 @@ public class PlayerControlsPanel extends JPanel {
             }
         });
 
-        ejectButton.addActionListener(new ActionListener() {
+        openFileButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 mediaPlayer.enableOverlay(false);
-                if(JFileChooser.APPROVE_OPTION == fileChooser.showOpenDialog(PlayerControlsPanel.this)) {
+                if (JFileChooser.APPROVE_OPTION == fileChooser.showOpenDialog(PlayerControlsPanel.this)) {
                     mediaPlayer.playMedia(fileChooser.getSelectedFile().getAbsolutePath());
                 }
                 mediaPlayer.enableOverlay(true);
