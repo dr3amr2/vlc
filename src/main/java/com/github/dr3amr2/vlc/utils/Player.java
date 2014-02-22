@@ -15,7 +15,7 @@ import java.io.File;
 import javax.swing.*;
 
 import com.github.dr3amr2.vlc.oldMVC.PlayerControlsPanel;
-import com.github.dr3amr2.vlc.oldMVC.VideoPlaybackSpeed;
+import com.github.dr3amr2.vlc.VideoPlaybackSpeed;
 import net.miginfocom.swing.MigLayout;
 import uk.co.caprica.vlcj.player.MediaPlayerFactory;
 import uk.co.caprica.vlcj.binding.internal.libvlc_media_t;

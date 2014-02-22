@@ -6,6 +6,7 @@ package com.github.dr3amr2.vlc.oldMVC;
  * This handles all the controls that interact between the panel and the model
  */
 
+import com.github.dr3amr2.vlc.VideoPlaybackSpeed;
 import uk.co.caprica.vlcj.binding.internal.libvlc_media_t;
 import uk.co.caprica.vlcj.player.MediaPlayer;
 import uk.co.caprica.vlcj.player.MediaPlayerEventListener;

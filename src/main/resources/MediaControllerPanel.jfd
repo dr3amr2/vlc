@@ -54,6 +54,16 @@ new FormModel {
 					"gridX": 9
 				} )
 				add( new FormComponent( "javax.swing.JButton" ) {
+					name: "connectButton"
+					"text": "Connect"
+					auxiliary() {
+						"JavaCodeGenerator.variableGetter": true
+					}
+				}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
+					"gridX": 1
+					"gridY": 3
+				} )
+				add( new FormComponent( "javax.swing.JButton" ) {
 					name: "audioButton"
 					auxiliary() {
 						"JavaCodeGenerator.variableGetter": true
@@ -103,8 +113,8 @@ new FormModel {
 				} ) {
 					name: "timePanel"
 					"border": new javax.swing.border.TitledBorder( "Time" )
-					add( new FormComponent( "javax.swing.JTextField" ) {
-						name: "startTimeTextField"
+					add( new FormComponent( "javax.swing.JLabel" ) {
+						name: "startTimeLabel"
 						auxiliary() {
 							"JavaCodeGenerator.variableGetter": true
 						}
@@ -112,8 +122,8 @@ new FormModel {
 						"gridX": 1
 						"gridY": 1
 					} )
-					add( new FormComponent( "javax.swing.JTextField" ) {
-						name: "endTimeTextField"
+					add( new FormComponent( "javax.swing.JLabel" ) {
+						name: "endTimeLabel"
 						auxiliary() {
 							"JavaCodeGenerator.variableGetter": true
 						}
@@ -132,14 +142,14 @@ new FormModel {
 						"gridWidth": 5
 						"gridY": 3
 					} )
-					add( new FormComponent( "javax.swing.JTextField" ) {
-						name: "currentTimeTextField"
+					add( new FormComponent( "javax.swing.JLabel" ) {
+						name: "currentTimeLabel"
 						auxiliary() {
 							"JavaCodeGenerator.variableGetter": true
 						}
 					}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
-						"gridY": 5
 						"gridX": 3
+						"gridY": 5
 					} )
 					add( new FormComponent( "javax.swing.JCheckBox" ) {
 						name: "repeatCheckBox"
