@@ -31,6 +31,43 @@ public class MediaControllerPanel extends JPanel {
     public MediaControllerPanel(PlayerModel model) {
         this.model = model;
         initComponents();
+        syncAllComponentsToSimilarHeight();
+    }
+
+    /**
+     * This method will sync all of the JComponents to match the height of the Play Button
+     */
+    private void syncAllComponentsToSimilarHeight() {
+        openButton.setPreferredSize(new Dimension(
+                (int)openButton.getPreferredSize().getWidth(),
+                (int)playButton.getPreferredSize().getHeight()
+        ));
+
+        pauseButton.setPreferredSize(new Dimension(
+                (int)pauseButton.getPreferredSize().getWidth(),
+                (int)playButton.getPreferredSize().getHeight()
+        ));
+
+        stopButton.setPreferredSize(new Dimension(
+                (int)stopButton.getPreferredSize().getWidth(),
+                (int)playButton.getPreferredSize().getHeight()
+        ));
+
+        playbackSpeedComboBox.setPreferredSize(new Dimension(
+                (int)playbackSpeedComboBox.getPreferredSize().getWidth(),
+                (int)playButton.getPreferredSize().getHeight()
+        ));
+
+        connectButton.setPreferredSize(new Dimension(
+                (int)connectButton.getPreferredSize().getWidth(),
+                (int)playButton.getPreferredSize().getHeight()
+        ));
+
+        muteButton.setPreferredSize(new Dimension(
+                (int)muteButton.getPreferredSize().getWidth(),
+                (int)playButton.getPreferredSize().getHeight()
+        ));
+
     }
 
     public JButton getOpenButton() {
