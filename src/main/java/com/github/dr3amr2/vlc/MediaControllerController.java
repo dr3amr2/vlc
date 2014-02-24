@@ -131,6 +131,7 @@ public class MediaControllerController {
                     mediaPlayer.playMedia(fileChooser.getSelectedFile().getAbsolutePath());
                     model.setClipLabel(fileChooser.getSelectedFile().getName());
                     model.setMediaFilePath(fileChooser.getSelectedFile().getAbsolutePath());
+                    panel.getClipLabelTextField().setText(model.getClipLabel());
                 }
                 mediaPlayer.enableOverlay(true);
             }
