@@ -1,9 +1,6 @@
 import com.github.dr3amr2.vlc.PlayerController;
 import com.github.dr3amr2.vlc.PlayerModel;
 import com.github.dr3amr2.vlc.PlayerPanel;
-import com.github.dr3amr2.vlc.oldMVC.vlcController;
-import com.github.dr3amr2.vlc.oldMVC.vlcModel;
-import com.github.dr3amr2.vlc.oldMVC.vlcPanel;
 import com.sun.jna.NativeLibrary;
 import uk.co.caprica.vlcj.binding.LibVlc;
 import uk.co.caprica.vlcj.binding.LibVlcFactory;
