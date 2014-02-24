@@ -16,6 +16,8 @@ import java.awt.*;
  */
 public class MediaControllerPanel extends JPanel {
 
+    private final PlayerModel model;
+
     public boolean isMute() {
         return isMute;
     }
@@ -26,7 +28,8 @@ public class MediaControllerPanel extends JPanel {
 
     private boolean isMute = false;
 
-    public MediaControllerPanel() {
+    public MediaControllerPanel(PlayerModel model) {
+        this.model = model;
         initComponents();
     }
 
@@ -159,7 +162,7 @@ public class MediaControllerPanel extends JPanel {
             if(isMute){
                 muteButton.setIcon(new ImageIcon(getClass().getClassLoader().getResource("icons/sound_mute.png")));
             } else {
-                muteButton.setIcon(new ImageIcon(getClass().getClassLoader().getResource("com/github/dr3amr2/vlc/icons/volume.png")));
+                muteButton.setIcon(model.SMALL_VOLUME_ICON);
             }
             muteButton.setToolTipText("Mute On/Off");
 

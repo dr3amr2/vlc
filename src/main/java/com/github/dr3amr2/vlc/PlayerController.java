@@ -38,7 +38,7 @@ public class PlayerController {
         panel.attachOptions(model.getVlcArgs());
 
         // Connect the Media Controller to the MediaPlayer created from the PlayerPanel
-        mediaControllerController = new MediaControllerController(panel.getMediaPlayer(), model, new MediaControllerPanel());
+        mediaControllerController = new MediaControllerController(panel.getMediaPlayer(), model, new MediaControllerPanel(model));
         panel.setControlsPanel(mediaControllerController.getPanel());
 
         // Add Listeners

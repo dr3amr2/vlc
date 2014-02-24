@@ -105,9 +105,9 @@ public class MediaControllerController {
             public void actionPerformed(ActionEvent e) {
                 isMute = !isMute;
                 if (isMute) {
-                    panel.getMuteButton().setIcon(new ImageIcon(getClass().getClassLoader().getResource("icons/sound_mute.png")));
+                    panel.getMuteButton().setIcon(model.SMALL_MUTE_ICON);
                 } else {
-                    panel.getMuteButton().setIcon(new ImageIcon(getClass().getClassLoader().getResource("com/github/dr3amr2/vlc/icons/volume.png")));
+                    panel.getMuteButton().setIcon(model.SMALL_VOLUME_ICON);
                 }
                 mediaPlayer.mute();
             }
