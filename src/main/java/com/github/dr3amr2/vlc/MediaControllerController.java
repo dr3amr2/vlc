@@ -48,8 +48,6 @@ public class MediaControllerController {
     private void attach(EmbeddedMediaPlayer mediaPlayer, MediaControllerPanel panel) {
         registerListeners();
 
-
-
     }
 
     private void registerListeners() {

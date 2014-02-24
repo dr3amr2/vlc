@@ -153,7 +153,7 @@ public class vlcController {
                         String path = model.getMediaFilePath();
                         System.out.println("Playing: " + path);
                         model.setMediaName(panel.getFileChooser().getName());
-                        panel.getControllerPanel().getMediaNameLabel().setText(model.getMediaName());
+//                        panel.getControllerPanel().getMediaNameLabel().setText(model.getMediaName());
                         panel.getMediaPlayer().playMedia(path , model.getVlcOptions());
                     }
 

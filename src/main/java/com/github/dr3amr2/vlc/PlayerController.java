@@ -21,6 +21,9 @@ public class PlayerController {
 
     private PlayerPanel panel;
 
+    private MediaControllerController mediaControllerController;
+
+
     public PlayerController(PlayerModel playerModel, PlayerPanel playerPanel){
         this.model = playerModel;
         this.panel = playerPanel;
@@ -36,6 +39,11 @@ public class PlayerController {
         initRootPanelListeners(panel);
 
         panel.getMediaPlayer().addMediaPlayerEventListener(new MediaPlayerEventListener());
+
+        mediaControllerController = new MediaControllerController(panel.getMediaPlayer(), new MediaControllerPanel());
+
+        panel.setControlsPanel(mediaControllerController.getPanel());
+
 
     }
 

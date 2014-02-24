@@ -12,6 +12,16 @@ import java.util.List;
 public class PlayerPanel extends JPanel{
 
     private Canvas videoSurface;
+
+    public JPanel getControlsPanel() {
+        return controlsPanel;
+    }
+
+    public void setControlsPanel(JPanel controlsPanel) {
+        this.controlsPanel = controlsPanel;
+        add(controlsPanel, BorderLayout.SOUTH);
+    }
+
     private JPanel controlsPanel;
 
     private MediaPlayerFactory mediaPlayerFactory;
@@ -39,12 +49,10 @@ public class PlayerPanel extends JPanel{
         mediaPlayer.setVideoSurface(mediaPlayerFactory.newVideoSurface(videoSurface));
         mediaPlayer.setPlaySubItems(true);
 
-        controlsPanel = new PlayerControlsPanel(mediaPlayer);
 
         setLayout(new BorderLayout());
         setBackground(Color.black);
         add(videoSurface, BorderLayout.CENTER);
-        add(controlsPanel, BorderLayout.SOUTH);
         setVisible(true);
     }
 

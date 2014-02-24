@@ -100,7 +100,6 @@ public class MediaControllerPanel extends JPanel {
         timePanel = new JPanel();
         startTimeLabel = new JLabel("hh:mm:ss");
         endTimeLabel = new JLabel("hh:mm:ss");
-        videoPositionSlider = new JSlider();
         currentTimeLabel = new JLabel("hh:mm:ss");
         repeatCheckBox = new JCheckBox();
         revertButton = new JButton();
@@ -153,6 +152,7 @@ public class MediaControllerPanel extends JPanel {
             mediaControllerPanel.add(playbackSpeedComboBox, cc.xy(9, 1));
 
             //---- connectButton ----
+            connectButton = new JButton();
             connectButton.setText("Connect");
             mediaControllerPanel.add(connectButton, cc.xy(1, 3));
 
@@ -196,6 +196,7 @@ public class MediaControllerPanel extends JPanel {
                 timePanel.add(endTimeLabel, cc.xy(5, 1));
 
                 //---- videoPositionSlider ----
+                videoPositionSlider = new JSlider(JSlider.HORIZONTAL, 0, 100, 5);
                 videoPositionSlider.setPaintTicks(true);
                 videoPositionSlider.setMinorTickSpacing(5);
                 timePanel.add(videoPositionSlider, cc.xywh(1, 3, 5, 1));
