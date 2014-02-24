@@ -48,6 +48,9 @@ public class PlayerController {
 
     private void updateVlcArgs(PlayerModel model) {
         model.getVlcArgs().add("--file-caching=6000");
+        model.getVlcArgs().add("--video-title-show");
+        model.getVlcArgs().add("--video-title-timeout=5000");
+
     }
 
     /**

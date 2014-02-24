@@ -31,7 +31,12 @@ public class MediaControllerPanel extends JPanel {
     public MediaControllerPanel(PlayerModel model) {
         this.model = model;
         initComponents();
+        setIcons();
         syncAllComponentsToSimilarHeight();
+    }
+
+    private void setIcons() {
+
     }
 
     /**
@@ -191,6 +196,7 @@ public class MediaControllerPanel extends JPanel {
 
             //---- connectButton ----
             connectButton = new JButton();
+            connectButton.setIcon(new ImageIcon(getClass().getClassLoader().getResource("icons/connect.png")));
             connectButton.setText("Connect");
             mediaControllerPanel.add(connectButton, cc.xy(1, 3));
 

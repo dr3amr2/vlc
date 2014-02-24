@@ -39,6 +39,15 @@ public class PlayerModel {
         return vlcArgs;
     }
 
+    public String[] getOptions() {
+        return options;
+    }
+
+    String[] options = {
+            ":video-title-show",
+            ":video-title-timeout=5000"
+    };
+
     public static final ImageIcon VOLUME_ICON = new ImageIcon(ImageUtils.getImageFromResources("volume.png"));
     public static final ImageIcon MUTE_ICON = new ImageIcon(ImageUtils.getImageFromResources("mute.png"));
     public static final ImageIcon PAUSE_ICON = new ImageIcon(ImageUtils.getImageFromResources("pause.png"));

@@ -128,7 +128,7 @@ public class MediaControllerController {
             public void actionPerformed(ActionEvent e) {
                 mediaPlayer.enableOverlay(false);
                 if (JFileChooser.APPROVE_OPTION == fileChooser.showOpenDialog(panel)) {
-                    mediaPlayer.playMedia(fileChooser.getSelectedFile().getAbsolutePath());
+                    mediaPlayer.playMedia(fileChooser.getSelectedFile().getAbsolutePath(), model.getOptions());
                     model.setClipLabel(fileChooser.getSelectedFile().getName());
                     model.setMediaFilePath(fileChooser.getSelectedFile().getAbsolutePath());
                     panel.getClipLabelTextField().setText(model.getClipLabel());
