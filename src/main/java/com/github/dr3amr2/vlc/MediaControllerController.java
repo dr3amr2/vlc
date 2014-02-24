@@ -156,6 +156,13 @@ public class MediaControllerController {
             }
         });
 
+        panel.getRepeatCheckBox().addItemListener(new ItemListener() {
+            @Override
+            public void itemStateChanged(ItemEvent e) {
+                mediaPlayer.setRepeat(panel.getRepeatCheckBox().isSelected());
+                System.out.println("Repeat Option: " + panel.getRepeatCheckBox().isSelected());
+            }
+        });
     }
 
     /**
