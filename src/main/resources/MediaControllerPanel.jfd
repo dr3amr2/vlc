@@ -115,21 +115,26 @@ new FormModel {
 					"border": new javax.swing.border.TitledBorder( "Time" )
 					add( new FormComponent( "javax.swing.JLabel" ) {
 						name: "startTimeLabel"
+						"border": &BevelBorder0 new javax.swing.border.BevelBorder( 1, null, null, null, null )
+						"text": "Testing"
 						auxiliary() {
 							"JavaCodeGenerator.variableGetter": true
 						}
 					}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
 						"gridX": 1
 						"gridY": 1
+						"hAlign": sfield com.jgoodies.forms.layout.CellConstraints LEFT
 					} )
 					add( new FormComponent( "javax.swing.JLabel" ) {
 						name: "endTimeLabel"
+						"border": #BevelBorder0
 						auxiliary() {
 							"JavaCodeGenerator.variableGetter": true
 						}
 					}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
 						"gridX": 5
 						"gridY": 1
+						"hAlign": sfield com.jgoodies.forms.layout.CellConstraints RIGHT
 					} )
 					add( new FormComponent( "javax.swing.JSlider" ) {
 						name: "videoPositionSlider"
@@ -144,12 +149,14 @@ new FormModel {
 					} )
 					add( new FormComponent( "javax.swing.JLabel" ) {
 						name: "currentTimeLabel"
+						"border": #BevelBorder0
 						auxiliary() {
 							"JavaCodeGenerator.variableGetter": true
 						}
 					}, new FormLayoutConstraints( class com.jgoodies.forms.layout.CellConstraints ) {
 						"gridX": 3
 						"gridY": 5
+						"hAlign": sfield com.jgoodies.forms.layout.CellConstraints CENTER
 					} )
 					add( new FormComponent( "javax.swing.JCheckBox" ) {
 						name: "repeatCheckBox"

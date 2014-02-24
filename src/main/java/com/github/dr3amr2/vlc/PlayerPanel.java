@@ -49,7 +49,6 @@ public class PlayerPanel extends JPanel{
         mediaPlayer.setVideoSurface(mediaPlayerFactory.newVideoSurface(videoSurface));
         mediaPlayer.setPlaySubItems(true);
 
-
         setLayout(new BorderLayout());
         setBackground(Color.black);
         add(videoSurface, BorderLayout.CENTER);

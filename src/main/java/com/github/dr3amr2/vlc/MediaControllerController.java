@@ -1,10 +1,6 @@
 package com.github.dr3amr2.vlc;
 
-import uk.co.caprica.vlcj.binding.internal.libvlc_media_t;
 import uk.co.caprica.vlcj.filter.swing.SwingFileFilterFactory;
-import uk.co.caprica.vlcj.logger.Logger;
-import uk.co.caprica.vlcj.player.MediaDetails;
-import uk.co.caprica.vlcj.player.MediaMeta;
 import uk.co.caprica.vlcj.player.MediaPlayer;
 import uk.co.caprica.vlcj.player.MediaPlayerEventAdapter;
 import uk.co.caprica.vlcj.player.embedded.EmbeddedMediaPlayer;
@@ -13,7 +9,6 @@ import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import javax.swing.filechooser.FileFilter;
-import java.awt.*;
 import java.awt.event.*;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -25,6 +20,7 @@ import java.util.concurrent.TimeUnit;
 public class MediaControllerController {
 
     private MediaControllerPanel panel;
+    private PlayerModel model;
 
     EmbeddedMediaPlayer mediaPlayer;
 
@@ -33,12 +29,18 @@ public class MediaControllerController {
     private boolean isMute = false;
 
 
-    public MediaControllerController(EmbeddedMediaPlayer mediaPlayer, MediaControllerPanel playerPanel){
+    public MediaControllerController(EmbeddedMediaPlayer mediaPlayer, PlayerModel playerModel, MediaControllerPanel mediaControllerPanel){
         this.mediaPlayer = mediaPlayer;
-        this.panel = playerPanel;
+        this.model = playerModel;
+        this.panel = mediaControllerPanel;
 
         setupFileChooser();
         attach(mediaPlayer, panel);
+
+        // Setting timeLabels to default 00:00:00
+        updateTimeLabel(0, panel.getStartTimeLabel());
+        updateTimeLabel(0, panel.getEndTimeLabel());
+        updateTimeLabel(0, panel.getCurrentTimeLabel());
 
         ScheduledExecutorService executorService = Executors.newSingleThreadScheduledExecutor();
         executorService.scheduleAtFixedRate(new UpdateRunnable(mediaPlayer), 0L, 1L, TimeUnit.SECONDS);
@@ -127,6 +129,8 @@ public class MediaControllerController {
                 mediaPlayer.enableOverlay(false);
                 if (JFileChooser.APPROVE_OPTION == fileChooser.showOpenDialog(panel)) {
                     mediaPlayer.playMedia(fileChooser.getSelectedFile().getAbsolutePath());
+                    model.setClipLabel(fileChooser.getSelectedFile().getName());
+                    model.setMediaFilePath(fileChooser.getSelectedFile().getAbsolutePath());
                 }
                 mediaPlayer.enableOverlay(true);
             }
@@ -143,6 +147,15 @@ public class MediaControllerController {
                 mediaPlayer.enableOverlay(true);
             }
         });
+
+        panel.getPlaybackSpeedComboBox().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                VideoPlaybackSpeed f = (VideoPlaybackSpeed) panel.getPlaybackSpeedComboBox().getSelectedItem();
+                mediaPlayer.setRate(f.getVideoRate());
+            }
+        });
+
     }
 
     /**
@@ -175,9 +188,10 @@ public class MediaControllerController {
                 mediaPlayer.pause();
             }
         }
+
         long time = mediaPlayer.getTime();
         int position = (int)(mediaPlayer.getPosition() * 1000.0f);
-        updateTime(time);
+        updateTimeLabel(time, panel.getCurrentTimeLabel());
         updatePosition(position);
     }
 
@@ -212,17 +226,22 @@ public class MediaControllerController {
                 @Override
                 public void run() {
                     if(mediaPlayer.isPlaying()) {
-                        updateTime(time);
+                        updateTimeLabel(time, panel.getCurrentTimeLabel());
                         updatePosition(position);
+
+                        long totalTime = mediaPlayer.getLength();
+                        updateTimeLabel(totalTime, panel.getEndTimeLabel());
+
                     }
                 }
             });
         }
     }
 
-    private void updateTime(long millis) {
+    private void updateTimeLabel(long millis, JLabel timeLabel) {
         String s = String.format("%02d:%02d:%02d", TimeUnit.MILLISECONDS.toHours(millis), TimeUnit.MILLISECONDS.toMinutes(millis) - TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(millis)), TimeUnit.MILLISECONDS.toSeconds(millis) - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(millis)));
-        panel.getCurrentTimeLabel().setText(s);
+//        panel.getCurrentTimeLabel().setText(s);
+        timeLabel.setText(s);
     }
 
     private void updatePosition(int value) {

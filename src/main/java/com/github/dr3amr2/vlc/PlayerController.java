@@ -33,18 +33,17 @@ public class PlayerController {
     }
 
     private void attach(PlayerModel model, PlayerPanel panel) {
+        // Add VLC Options and init PlayerPanel
         updateVlcArgs(model);
         panel.attachOptions(model.getVlcArgs());
 
-        initRootPanelListeners(panel);
-
-        panel.getMediaPlayer().addMediaPlayerEventListener(new MediaPlayerEventListener());
-
-        mediaControllerController = new MediaControllerController(panel.getMediaPlayer(), new MediaControllerPanel());
-
+        // Connect the Media Controller to the MediaPlayer created from the PlayerPanel
+        mediaControllerController = new MediaControllerController(panel.getMediaPlayer(), model, new MediaControllerPanel());
         panel.setControlsPanel(mediaControllerController.getPanel());
 
-
+        // Add Listeners
+        initRootPanelListeners(panel);
+        panel.getMediaPlayer().addMediaPlayerEventListener(new MediaPlayerEventListener());
     }
 
     private void updateVlcArgs(PlayerModel model) {

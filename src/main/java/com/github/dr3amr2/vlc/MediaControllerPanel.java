@@ -9,6 +9,8 @@ import javax.swing.border.*;
 import com.jgoodies.forms.layout.*;
 import uk.co.caprica.vlcj.player.embedded.EmbeddedMediaPlayer;
 
+import java.awt.*;
+
 /**
  * @author Dzuy Nguyen
  */
@@ -97,11 +99,7 @@ public class MediaControllerPanel extends JPanel {
         selectedClipPropertiesPanel = new JPanel();
         clipLabel = new JLabel();
         clipLabelTextField = new JTextField();
-        timePanel = new JPanel();
-        startTimeLabel = new JLabel("hh:mm:ss");
-        endTimeLabel = new JLabel("hh:mm:ss");
-        currentTimeLabel = new JLabel("hh:mm:ss");
-        repeatCheckBox = new JCheckBox();
+
         revertButton = new JButton();
         applyButton = new JButton();
         CellConstraints cc = new CellConstraints();
@@ -188,23 +186,42 @@ public class MediaControllerPanel extends JPanel {
 
             //======== timePanel ========
             {
+                timePanel = new JPanel();
                 timePanel.setBorder(new TitledBorder("Time"));
                 timePanel.setLayout(new FormLayout(
                     "2*(default:grow, $lcgap), default:grow",
                     "3*(default, $lgap), default"));
-                timePanel.add(startTimeLabel, cc.xy(1, 1));
-                timePanel.add(endTimeLabel, cc.xy(5, 1));
+
+                //---- startTimeLabel ----
+                startTimeLabel = new JLabel();
+                startTimeLabel.setBorder(new BevelBorder(BevelBorder.LOWERED));
+
+                //---- endTimeLabel ----
+                endTimeLabel = new JLabel();
+                endTimeLabel.setBorder(new BevelBorder(BevelBorder.LOWERED));
 
                 //---- videoPositionSlider ----
-                videoPositionSlider = new JSlider(JSlider.HORIZONTAL, 0, 100, 5);
+                videoPositionSlider = new JSlider();
+                videoPositionSlider.setMinimum(0);
+                videoPositionSlider.setMaximum(1000);
+                videoPositionSlider.setValue(0);
                 videoPositionSlider.setPaintTicks(true);
-                videoPositionSlider.setMinorTickSpacing(5);
-                timePanel.add(videoPositionSlider, cc.xywh(1, 3, 5, 1));
-                timePanel.add(currentTimeLabel, cc.xy(3, 5));
+                videoPositionSlider.setMinorTickSpacing(50);
+
+                //---- currentTimeLabel ----
+                currentTimeLabel = new JLabel();
+                currentTimeLabel.setBorder(new BevelBorder(BevelBorder.LOWERED));
 
                 //---- repeatCheckBox ----
+                repeatCheckBox = new JCheckBox();
                 repeatCheckBox.setText("Repeat");
+
+                timePanel.add(startTimeLabel, cc.xy(1, 1, CellConstraints.LEFT, CellConstraints.DEFAULT));
+                timePanel.add(endTimeLabel, cc.xy(5, 1, CellConstraints.RIGHT, CellConstraints.DEFAULT));
+                timePanel.add(videoPositionSlider, cc.xywh(1, 3, 5, 1));
+                timePanel.add(currentTimeLabel, cc.xy(3, 5, CellConstraints.CENTER, CellConstraints.DEFAULT));
                 timePanel.add(repeatCheckBox, cc.xy(3, 7, CellConstraints.CENTER, CellConstraints.DEFAULT));
+
             }
             selectedClipPropertiesPanel.add(timePanel, cc.xywh(1, 3, 3, 1));
         }

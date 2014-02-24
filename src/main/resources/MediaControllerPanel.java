@@ -1,3 +1,4 @@
+import java.awt.*;
 import javax.swing.*;
 import javax.swing.border.*;
 import com.jgoodies.forms.layout.*;
@@ -158,14 +159,24 @@ public class MediaControllerPanel extends JPanel {
                 timePanel.setLayout(new FormLayout(
                     "2*(default:grow, $lcgap), default:grow",
                     "3*(default, $lgap), default"));
-                timePanel.add(startTimeLabel, cc.xy(1, 1));
-                timePanel.add(endTimeLabel, cc.xy(5, 1));
+
+                //---- startTimeLabel ----
+                startTimeLabel.setBorder(new BevelBorder(BevelBorder.LOWERED));
+                startTimeLabel.setText("Testing");
+                timePanel.add(startTimeLabel, cc.xy(1, 1, CellConstraints.LEFT, CellConstraints.DEFAULT));
+
+                //---- endTimeLabel ----
+                endTimeLabel.setBorder(new BevelBorder(BevelBorder.LOWERED));
+                timePanel.add(endTimeLabel, cc.xy(5, 1, CellConstraints.RIGHT, CellConstraints.DEFAULT));
 
                 //---- videoPositionSlider ----
                 videoPositionSlider.setPaintTicks(true);
                 videoPositionSlider.setMinorTickSpacing(5);
                 timePanel.add(videoPositionSlider, cc.xywh(1, 3, 5, 1));
-                timePanel.add(currentTimeLabel, cc.xy(3, 5));
+
+                //---- currentTimeLabel ----
+                currentTimeLabel.setBorder(new BevelBorder(BevelBorder.LOWERED));
+                timePanel.add(currentTimeLabel, cc.xy(3, 5, CellConstraints.CENTER, CellConstraints.DEFAULT));
 
                 //---- repeatCheckBox ----
                 repeatCheckBox.setText("Repeat");
