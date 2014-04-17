@@ -4,11 +4,12 @@
 
 package com.github.dr3amr2.vlc;
 
-import javax.swing.*;
-import javax.swing.border.*;
-import com.jgoodies.forms.layout.*;
-import uk.co.caprica.vlcj.player.embedded.EmbeddedMediaPlayer;
+import com.jgoodies.forms.layout.CellConstraints;
+import com.jgoodies.forms.layout.FormLayout;
 
+import javax.swing.*;
+import javax.swing.border.BevelBorder;
+import javax.swing.border.TitledBorder;
 import java.awt.*;
 
 /**

@@ -75,7 +75,7 @@ public class ImageUtils
     {
         try
         {
-            return ImageIO.read(ImageUtils.class.getResource("/com/github/dr3amr2/vlc/icons/" + imageFilename));
+            return ImageIO.read(ImageUtils.class.getResource(imageFilename));
 
         } catch (IOException e)
         {

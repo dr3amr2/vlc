@@ -16,6 +16,8 @@ public class PlayerModel {
 
     private String mediaFilePath;
 
+    private static String iconPath = "/icons/mediaPlayer/";
+
     private List<String> vlcArgs = new ArrayList<String>();
 
 
@@ -48,11 +50,11 @@ public class PlayerModel {
             ":video-title-timeout=5000"
     };
 
-    public static final ImageIcon VOLUME_ICON = new ImageIcon(ImageUtils.getImageFromResources("volume.png"));
-    public static final ImageIcon MUTE_ICON = new ImageIcon(ImageUtils.getImageFromResources("mute.png"));
-    public static final ImageIcon PAUSE_ICON = new ImageIcon(ImageUtils.getImageFromResources("pause.png"));
-    public static final ImageIcon STOP_ICON = new ImageIcon(ImageUtils.getImageFromResources("stop.png"));
-    public static final ImageIcon PLAY_ICON = new ImageIcon(ImageUtils.getImageFromResources("play.png"));
+    public static final ImageIcon VOLUME_ICON = new ImageIcon(ImageUtils.getImageFromResources(iconPath + "volume.png"));
+    public static final ImageIcon MUTE_ICON = new ImageIcon(ImageUtils.getImageFromResources(iconPath + "mute.png"));
+    public static final ImageIcon PAUSE_ICON = new ImageIcon(ImageUtils.getImageFromResources(iconPath + "pause.png"));
+    public static final ImageIcon STOP_ICON = new ImageIcon(ImageUtils.getImageFromResources(iconPath + "stop.png"));
+    public static final ImageIcon PLAY_ICON = new ImageIcon(ImageUtils.getImageFromResources(iconPath + "play.png"));
 
     private static int smallIconSize = 32;
 
