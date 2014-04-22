@@ -1,6 +1,7 @@
 package com.github.dr3amr2.vlc;
 
 import uk.co.caprica.vlcj.filter.swing.SwingFileFilterFactory;
+import uk.co.caprica.vlcj.mrl.UdpMrl;
 import uk.co.caprica.vlcj.player.MediaPlayer;
 import uk.co.caprica.vlcj.player.MediaPlayerEventAdapter;
 import uk.co.caprica.vlcj.player.embedded.EmbeddedMediaPlayer;
@@ -132,6 +133,8 @@ public class MediaControllerController {
                     model.setClipLabel(fileChooser.getSelectedFile().getName());
                     model.setMediaFilePath(fileChooser.getSelectedFile().getAbsolutePath());
                     panel.getClipLabelTextField().setText(model.getClipLabel());
+
+                    System.out.println(model.getMediaFilePath());
                 }
                 mediaPlayer.enableOverlay(true);
             }
@@ -141,10 +144,23 @@ public class MediaControllerController {
             @Override
             public void actionPerformed(ActionEvent e) {
                 mediaPlayer.enableOverlay(false);
-                String mediaUrl = JOptionPane.showInputDialog(panel, "Enter a media URL", "Connect to media", JOptionPane.QUESTION_MESSAGE);
-                if (mediaUrl != null && mediaUrl.length() > 0) {
-                    mediaPlayer.playMedia(mediaUrl);
-                }
+
+
+//                String mediaUrl = JOptionPane.showInputDialog(panel, "Enter a media URL", "Connect to media", JOptionPane.QUESTION_MESSAGE);
+//                System.out.println(mediaUrl);
+//                model.setMrl(mediaUrl);
+//                if (mediaUrl != null && mediaUrl.length() > 0) {
+//                    mediaPlayer.playMedia(mediaUrl, model.getOptions());
+//                }
+
+                String mrl = new UdpMrl().groupAddress("127.0.0.1")
+                                                  .port(30000)
+                                                  .value();
+                System.out.println(mrl);
+
+                mediaPlayer.playMedia(mrl, model.getOptions());
+
+
                 mediaPlayer.enableOverlay(true);
             }
         });

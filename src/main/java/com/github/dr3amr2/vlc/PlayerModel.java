@@ -16,6 +16,8 @@ public class PlayerModel {
 
     private String mediaFilePath;
 
+    private String mrl;
+
     private static String iconPath = "/icons/mediaPlayer/";
 
     private List<String> vlcArgs = new ArrayList<String>();
@@ -70,4 +72,11 @@ public class PlayerModel {
             new ImageIcon(ImageUtils.getScaledInstance((BufferedImage) STOP_ICON.getImage(), smallIconSize));
 
 
+    public String getMrl() {
+        return mrl;
+    }
+
+    public void setMrl(String mrl) {
+        this.mrl = mrl;
+    }
 }
